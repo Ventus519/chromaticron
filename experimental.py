@@ -7,7 +7,7 @@ def scene0():
   global userNameEntered
   global userText
   mixer.init()
-  mixer.music.load('Downloads/bgMusic.mp3')
+  mixer.music.load('assets/sounds/music/bgMusic.mp3')
   mixer.music.set_volume(11)
 
   WINDOW_WIDTH = 700
@@ -16,10 +16,10 @@ def scene0():
   clock = pygame.time.Clock()
   pygame.init()
   screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-  dialogBox = pygame.image.load("Downloads/dialogueBox.png").convert()
-  mansionImage = pygame.image.load("Downloads/mansionImage.jpg").convert()
-  userBox = pygame.image.load("Downloads/dialogBox.png").convert()
-  skipButton = pygame.image.load("Downloads/skipButtonPLACEHOLDER.png").convert()
+  dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
+  mansionImage = pygame.image.load("experimental/mansionImage.jpg").convert()
+  userBox = pygame.image.load("experimental/dialogBox.png").convert()
+  #skipButton = pygame.image.load("experimental/skipButtonPLACEHOLDER.png").convert()
 
   WHITE = (255, 255, 255)
   BLACK = (0, 0, 0)
@@ -33,7 +33,7 @@ def scene0():
       for i in range(len(string)):
           text += string[i]
           screen.fill(BROWN)
-          font = pygame.font.Font("Downloads/OpenSans-Regular.ttf", 17)
+          font = pygame.font.Font("fonts/OpenSans-Regular.ttf", 17)
           text_surface = font.render(text, True, WHITE)
           mansionImage.draw()
           dialogBox.draw()
@@ -43,7 +43,7 @@ def scene0():
           pygame.display.update()
           pygame.time.wait(50)
 
-  largeSans = pygame.font.Font("Downloads/OpenSans-Regular.ttf", 40)
+  largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 40)
     
   class imageScaling():
     def __init__(self, x, y, image, scale):
@@ -148,16 +148,18 @@ def scene0():
   """
 
   mixer.music.stop()
+  mixer.music.load('assets/sounds/music/SelectionMusic.mp3')
   cutScene = False
   run = True
   userText = ''
-  font = pygame.font.Font('Downloads/OpenSans-Regular.ttf', 32)
+  font = pygame.font.Font('fonts/OpenSans-Regular.ttf', 32)
   clickedBox = False
   textBox = pygame.Rect(30, 155, 630, 135)
   userNameEntered = False
 
   while run:
     if cutScene == False:
+        mixer.music.play(-1)
         userNameText = largeSans.render("Enter your username to proceed...", True, (WHITE))
         directions = largeSans.render("Press RETURN when done.", True, (WHITE))
         screen.blit(userNameText, (20, 20))
