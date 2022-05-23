@@ -3,11 +3,11 @@ def scene0():
   import pygame
   import sys
   import textwrap
-  #this music is mainly to test unless it is widely accepted. If using headphones make sure to click the check box at the bottom right of the game window
+  #this music is mainly to test unless it is widely accepted.3 If using headphones make sure to click the check box at the bottom right of the game window
   global userNameEntered
   global userText
   mixer.init()
-  mixer.music.load('assets/sounds/music/bgMusic.mp3')
+  mixer.music.load('Downloads/bgMusic.mp3')
   mixer.music.set_volume(11)
 
   WINDOW_WIDTH = 700
@@ -16,9 +16,10 @@ def scene0():
   clock = pygame.time.Clock()
   pygame.init()
   screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-  dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
-  mansionImage = pygame.image.load("experimental/mansionImage.jpg").convert()
-  userBox = pygame.image.load("experimental/dialogBox.png").convert()
+  dialogBox = pygame.image.load("Downloads/dialogueBox.png").convert()
+  mansionImage = pygame.image.load("Downloads/mansionImage.jpg").convert()
+  userBox = pygame.image.load("Downloads/dialogBox.png").convert()
+  skipButton = pygame.image.load("Downloads/skipButtonPLACEHOLDER.png").convert()
 
   WHITE = (255, 255, 255)
   BLACK = (0, 0, 0)
@@ -32,7 +33,7 @@ def scene0():
       for i in range(len(string)):
           text += string[i]
           screen.fill(BROWN)
-          font = pygame.font.Font("fonts/OpenSans-Regular.ttf", 17)
+          font = pygame.font.Font("Downloads/OpenSans-Regular.ttf", 17)
           text_surface = font.render(text, True, WHITE)
           mansionImage.draw()
           dialogBox.draw()
@@ -40,9 +41,9 @@ def scene0():
           text_rect.center = (x, y)
           screen.blit(text_surface, text_rect)
           pygame.display.update()
-          pygame.time.wait(1)
+          pygame.time.wait(50)
 
-  largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 40)
+  largeSans = pygame.font.Font("Downloads/OpenSans-Regular.ttf", 40)
     
   class imageScaling():
     def __init__(self, x, y, image, scale):
@@ -98,14 +99,14 @@ def scene0():
   pygame.time.wait(500)
   display_text_animation("Many folks have tried to explore the mansion...", 320,315)
   pygame.time.wait(500)
-  display_text_animation("Some searched out of curiosity, others for bragging rights.", 320, 315)
+  display_text_animation("Some searched out of curiosity, others for fame..", 320, 315)
   pygame.time.wait(500)
   display_text_animation("But none have ever resurfaced from the depths of the ruined building.",320,315)
   pygame.time.wait(1500)
 
   display_text_animation("Eighty-five years later, you and your friends pass by Byrne Mansion...", 320,315)
   pygame.time.wait(500)
-  display_text_animation("Your friend dares you to enter the wicked Mansion...", 320, 315)
+  display_text_animation("Your friend dares you to enter the wicked place...", 320, 315)
   pygame.time.wait(500)
   display_text_animation("And you foolishly accept...", 320,315)
 
@@ -147,12 +148,10 @@ def scene0():
   """
 
   mixer.music.stop()
-  mixer.music.load('assets/sounds/music/SelectionMusic.mp3')
-  mixer.music.play()
   cutScene = False
   run = True
   userText = ''
-  font = pygame.font.Font('fonts/OpenSans-Regular.ttf', 32)
+  font = pygame.font.Font('Downloads/OpenSans-Regular.ttf', 32)
   clickedBox = False
   textBox = pygame.Rect(30, 155, 630, 135)
   userNameEntered = False
@@ -188,6 +187,9 @@ def scene0():
             if len(userText) >= 15:
               print("Username is too long, please enter something shorter")
               userNameEntered = False
+            elif len(userText) <= 3:
+              userNameEntered = False
+              print("Username is too short")
             elif userText == "":
               print("Enter a username")
               userNameEntered = False
@@ -210,4 +212,3 @@ def scene0():
       textBox.w = max(650, text_surface.get_width()+10)
       pygame.display.flip()
       clock.tick(60)
-      mixer.music.stop()
