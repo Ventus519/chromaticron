@@ -44,6 +44,10 @@ color_inactive = pygame.Color('lightskyblue3')
 color_active = pygame.Color('red1')
 active = False
 
+#Bible = pygame.image.load(" .................. ")
+#DancingMen = pygame.image.load(" ................ ")
+#BlankBook = pygame.image.load(" ................ ")
+
 
 #work-in-progress
 
@@ -470,11 +474,14 @@ while run:
         """print("The Adventures of the Dancing Men clicked!")
           screen.fill((0, 0, 0, 0))
 
-          inventory.append("DancingMen")
+          inventory.append("inventoryDancingMen")
           #pygame.mixer.Sound.play(inventoryDing)
           pygame.mixer.music.stop()
           inventory = list(set(inventory))
-          print(inventory)"""
+          print(inventory)
+          if inventoryDancingMen == True:
+
+"""
         if backButtonRect.collidepoint(x, y):
           imageOne = True
           zoomIn = False
