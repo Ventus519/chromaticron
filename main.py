@@ -14,29 +14,29 @@ pygame.init()
 #loading images and game sizing
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption("Menu")
-menuScreen = pygame.image.load("Downloads/menuFullScreen.png").convert()
+menuScreen = pygame.image.load("title/menuFullScreen.png").convert()
 
-allShelves = pygame.image.load("Downloads/allShelves.png").convert()
-clocksArea = pygame.image.load("Downloads/clocksArea.png").convert()
-bookshelfZoom1 = pygame.image.load("Downloads/bookshelfZoom1.png").convert()
-bookshelfZoom2 = pygame.image.load("Downloads/bookshelfZoom2.png").convert()
-bookshelfZoom3 = pygame.image.load("Downloads/bookshelfZoom3.png").convert()
-bookshelfZoom4 = pygame.image.load("Downloads/bookshelfZoom4.png").convert()
-rightTriangle = pygame.image.load("Downloads/rightTriangleThing.png").convert_alpha()
-deskBg = pygame.image.load("Downloads/closeup of desk.png")
-deskOpen = pygame.image.load("Downloads/pixil-frame-0 (8).png")
+allShelves = pygame.image.load("assets/images/Library/backgrounds/allShelves.png").convert()
+clocksArea = pygame.image.load("assets/images/Library/backgrounds/clocksArea.png").convert()
+bookshelfZoom1 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom1.png").convert()
+bookshelfZoom2 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom2.png").convert()
+bookshelfZoom3 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom3.png").convert()
+bookshelfZoom4 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom4.png").convert()
+#i dont think i have this rightTriangle = pygame.image.load("Downloads/rightTriangleThing.png").convert_alpha()
+deskBg = pygame.image.load("assets/images/Library/backgrounds/closeup of desk.png")
+deskOpen = pygame.image.load("assets/images/Library/backgrounds/openDesk.png")
 
 #DeskFile = pygame.image.load("assets/images/Library/backgrounds/file_inside_of_desk.png")
-backButton = pygame.image.load("Downloads/backButton.jpg").convert()
-leftArrow = pygame.image.load("Downloads/leftArrow.jpg").convert()
-rightArrow = pygame.image.load("Downloads/rightArrow.jpg").convert()
+backButton = pygame.image.load("assets/buttons/all-screens/backButton.jpg").convert()
+leftArrow = pygame.image.load("assets/buttons/all-screens/leftArrow.jpg").convert()
+rightArrow = pygame.image.load("assets/buttons/all-screens/rightArrow.jpg").convert()
 
-leverOn = pygame.image.load("Downloads/leverOn.png").convert()
-leverOff = pygame.image.load("Downloads/leverOff.png").convert()
+leverOn = pygame.image.load("assets/images/Library/puzzle-1/levers/leverOn.png").convert()
+leverOff = pygame.image.load("assets/images/Library/puzzle-1/levers/leverOff.png").convert()
 
-dialogBox = pygame.image.load("Downloads/dialogueBox.png").convert()
-mansionImage = pygame.image.load("Downloads/mansionImage.jpg").convert()
-userBox = pygame.image.load("Downloads/dialogBox.png").convert()
+dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
+mansionImage = pygame.image.load("experimental/mansionImage.jpg").convert()
+userBox = pygame.image.load("experimental/dialogBox.png").convert()
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BROWN = (111, 78, 55)
@@ -47,19 +47,19 @@ active = False
 
 #work-in-progress
 
-oneOClock = pygame.image.load("Downloads/1clock.png").convert_alpha()
-twoOClock = pygame.image.load("Downloads/2clock.png").convert_alpha()
-threeOClock = pygame.image.load("Downloads/3clock.png").convert_alpha()
-fourOClock = pygame.image.load("Downloads/4clock.png").convert_alpha()
-fiveOClock = pygame.image.load("Downloads/5clock.png").convert_alpha()
-sixOClock = pygame.image.load("Downloads/6clock.png").convert_alpha()
-sevenOClock = pygame.image.load("Downloads/7clock.png").convert_alpha()
-eightOClock = pygame.image.load("Downloads/8clock.png").convert_alpha()
-nineOClock = pygame.image.load("Downloads/9clock.png").convert_alpha()
-tenOClock = pygame.image.load("Downloads/10clock.png").convert_alpha()
-elevenOClock = pygame.image.load("Downloads/11clock.png").convert_alpha()
-twelveOClock = pygame.image.load("Downloads/12clock.png").convert_alpha()
-timerBg = pygame.image.load("Downloads/timerBg.jpg").convert()
+oneOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/1clock.png").convert_alpha()
+twoOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/2clock.png").convert_alpha()
+threeOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/3clock.png").convert_alpha()
+fourOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/4clock.png").convert_alpha()
+fiveOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/5clock.png").convert_alpha()
+sixOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/6clock.png").convert_alpha()
+sevenOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/7clock.png").convert_alpha()
+eightOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/8clock.png").convert_alpha()
+nineOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/9clock.png").convert_alpha()
+tenOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/10clock.png").convert_alpha()
+elevenOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/11clock.png").convert_alpha()
+twelveOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/12clock.png").convert_alpha()
+timerBg = pygame.image.load("title/timerBg.jpg").convert()
 
 
 '''oneOClock = pygame.image.load("1clockold.png").convert_alpha()
@@ -75,18 +75,18 @@ tenOClock = pygame.image.load("10clockold.png").convert_alpha()
 elevenOClock = pygame.image.load("11clockold.png").convert_alpha()
 twelveOClock = pygame.image.load("12clockold.png").convert_alpha()'''
 
-inventoryImage = pygame.image.load("Downloads/inventoryIcon.png").convert_alpha()
-inventoryHotbar = pygame.image.load("Downloads/inventoryHotbar.png").convert_alpha()
-inventoryTextThing = pygame.image.load("Downloads/inventoryTextThing.png").convert_alpha()
-keyImage = pygame.image.load("Downloads/keyImage.png").convert_alpha()
-inventoryBackground = pygame.image.load("Downloads/inventoryBackground.jpeg").convert_alpha()
+inventoryImage = pygame.image.load("assets/images/inv/inventoryIcon.png").convert_alpha()
+inventoryHotbar = pygame.image.load("assets/images/inv/inventoryHotbar.png").convert_alpha()
+inventoryTextThing = pygame.image.load("assets/images/inv/inventoryTextThing.png").convert_alpha()
+keyImage = pygame.image.load("assets/images/inv/keyImage.png").convert_alpha()
+inventoryBackground = pygame.image.load("assets/images/inv/inventoryBackground.jpeg").convert_alpha()
 
 #music
 mixer.init()
-inventoryDing = mixer.music.load("Downloads/inventoryDing.mp3")
+inventoryDing = mixer.music.load("assets/sounds/effects/inventoryDing.mp3")
 #mixer.music.set_volume(0.7)
-clueClick = mixer.music.load("Downloads/clueClick.wav")
-bgMusic = mixer.music.load("Downloads/bgMusic.mp3")
+clueClick = mixer.music.load("assets/sounds/effects/clueClick.wav")
+bgMusic = mixer.music.load("assets/sounds/music/bgMusic.mp3")
 #intense music lag moment
 
 
@@ -115,7 +115,7 @@ bookshelfZoom1 = imageScaling(0, 0, bookshelfZoom1, 1)
 bookshelfZoom2 = imageScaling(0, 0, bookshelfZoom2, 1)
 bookshelfZoom3 = imageScaling(0, 0, bookshelfZoom3, 1)
 bookshelfZoom4 = imageScaling(0, 0, bookshelfZoom4, 1)
-rightTriangleImage = imageScaling(445, 35, rightTriangle, 0.2)
+#rightTriangleImage = imageScaling(445, 35, rightTriangle, 0.2)
 
 leftArrow = imageScaling(100, screenHeight/2, leftArrow, 0.3)
 rightArrow = imageScaling(540, screenHeight/2, rightArrow, 0.3)
@@ -187,7 +187,7 @@ startClicked = False
 
 deskOpened = False
 
-largeSans = pygame.font.Font("Downloads/OpenSans-Regular.ttf", 28)
+largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 28)
 
 t = 0
 timerDelay = True
@@ -510,7 +510,7 @@ while run:
             leverOn.draw()
             leverState = True
             if clockIndex == 4:
-              # pygame.mixer.Sound.play(clueClick)
+              mixer.Sound.play(clueClick)
               print("Correct!")
               keyImageButton.draw()
             else:
@@ -530,7 +530,7 @@ while run:
           
           clocksIteration = True
           inventory.append("Key")
-          #pygame.mixer.Sound.play(inventoryDing)
+          mixer.Sound.play(inventoryDing)
           pygame.mixer.music.stop()
           inventory = list(set(inventory))
           print(inventory)
