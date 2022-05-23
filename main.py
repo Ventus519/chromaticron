@@ -169,7 +169,7 @@ twelveOClock = imageScaling(265, 10, twelveOClock, 4)
 imageList = [allShelves, clocksArea, deskBg]
 shelfZooms = [bookshelfZoom1, bookshelfZoom2, bookshelfZoom3, bookshelfZoom4]
 clockTimes = [oneOClock, twoOClock, threeOClock, fourOClock, fiveOClock, sixOClock, sevenOClock, eightOClock, nineOClock, tenOClock, elevenOClock, twelveOClock]
-inventory = [inventoryKey#, inventoryBible, inventoryBlankBook, inventoryDancingMen]
+inventory = [inventoryKey]#, inventoryBible, inventoryBlankBook, inventoryDancingMen
 booksList = []
 inventoryOpen = False
 global userName
