@@ -24,15 +24,15 @@ bookshelfZoom3 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZ
 bookshelfZoom4 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom4.png").convert()
 #i dont think i have this rightTriangle = pygame.image.load("Downloads/rightTriangleThing.png").convert_alpha()
 deskBg = pygame.image.load("assets/images/Library/backgrounds/closeup of desk.png")
-deskOpen = pygame.image.load("assets/images/Library/backgrounds/openDesk.png")
+deskOpen = pygame.image.load("assets/images/Library/backgrounds/deskOpen.png")
 
 #DeskFile = pygame.image.load("assets/images/Library/backgrounds/file_inside_of_desk.png")
 backButton = pygame.image.load("assets/buttons/all-screens/backButton.jpg").convert()
 leftArrow = pygame.image.load("assets/buttons/all-screens/leftArrow.jpg").convert()
 rightArrow = pygame.image.load("assets/buttons/all-screens/rightArrow.jpg").convert()
 
-leverOn = pygame.image.load("assets/images/Library/puzzle-1/levers/leverOn.png").convert()
-leverOff = pygame.image.load("assets/images/Library/puzzle-1/levers/leverOff.png").convert()
+leverOn = pygame.image.load("assets/images/Library/puzzle-1/lever/leverOn.png").convert()
+leverOff = pygame.image.load("assets/images/Library/puzzle-1/lever/leverOff.png").convert()
 
 dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
 mansionImage = pygame.image.load("experimental/mansionImage.jpg").convert()
