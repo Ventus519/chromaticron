@@ -27,7 +27,7 @@ floorZoomIn= pygame.image.load('assets/images/Bedroom/zoomIns/floordboardZoomIn.
 floorboardRemovedZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/floorboardRemovedZoomIn.png').convert() 
 recordplyrZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/RecordplyrNoRecordZoomIn.png').convert()
 recordplyrWithRecordZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/RecordplyrZoomIn.png').convert()
-
+painting = pygame.image.load('assets/images/Bedroom/zoomIns/paintingZoomIn.png').convert()
  
 dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
 
@@ -118,6 +118,7 @@ bedroomZoomFloorboard = imageScaling(0, 0, floorZoomIn, 1)
 bedroomZoomRecordplyr = imageScaling(0, 0, recordplyrZoomIn, 1)
 bedroomZoomFloorboardRemoved = imageScaling(0, 0, floorboardRemovedZoomIn, 1)
 bedroomZoomRecordplyrWithRecord = imageScaling(0, 0, recordplyrWithRecordZoomIn, 1)
+bedroomZoomPainting = imageScaling(0, 0, painting, 1)
 #adding clock times individually to test
 
  
@@ -125,7 +126,7 @@ bedroomZoomRecordplyrWithRecord = imageScaling(0, 0, recordplyrWithRecordZoomIn,
  
 #lists
 imageList = []
-bedroomZooms = [bedroomZoomNightstand, 'bedroomZoomBed', bedroomZoomRecordplyr, 'bedroomZoomPainting', bedroomZoomFloorboard, bedroomZoomFloorboardRemoved, bedroomZoomRecordplyrWithRecord]
+bedroomZooms = [bedroomZoomNightstand, 'bedroomZoomBed', bedroomZoomRecordplyr, bedroomZoomPainting, bedroomZoomFloorboard, bedroomZoomFloorboardRemoved, bedroomZoomRecordplyrWithRecord]
 
 inventory = [inventoryKey, bibleInvItem]# inventoryBlankBook, inventoryDancingMen
 booksList = []
@@ -323,17 +324,7 @@ while run:
                     inventory = list(set(inventory))
                     print(inventory)
                     pygame.display.flip()
-        #BlanBookRect = pygame.Rect(w, x, y, z)
-        #if BlankBookRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and menuOpen == False:
-    """print("Blank Book clicked!")
-        screen.fill((0, 0, 0, 0))
 
-        inventory.append("inventoryBlankBook")
-        #pygame.mixer.Sound.play(inventoryDing)
-        pygame.mixer.music.stop()
-        inventory = list(set(inventory))
-        print(inventory)"""
-        
     if bedroomRecordplyr.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
         print("Record Player interacted")
         bedroomZooms[2].draw()
@@ -411,7 +402,7 @@ while run:
  
 pygame.quit()
  
- 
+#osvaldo stuff
 """
 This if for the Arcostic Poem!
 I will add the code you guys asked for here and we'll most likely edit the minor stuff such as the images and stuff later when we have it.
