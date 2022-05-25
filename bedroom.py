@@ -25,8 +25,8 @@ rightArrow = pygame.image.load("assets/buttons/all-screens/rightArrow.jpg").conv
 nightStandZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/nightstandZoomIn.png').convert()
 floorZoomIn= pygame.image.load('assets/images/Bedroom/zoomIns/floordboardZoomIn.png').convert()
 floorboardRemovedZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/floorboardRemovedZoomIn.png').convert() 
-recordplyrZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/RecordplyrNoRecordZoomIn.png').convert()
-recordplyrWithRecordZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/RecordplyrZoomIn.png').convert()
+recordPlayerZoom = pygame.image.load('assets/images/Bedroom/zoomIns/RecordplyrNoRecordZoomIn.png').convert()
+recordPlayerWithRecordZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/RecordplyrZoomIn.png').convert()
 painting = pygame.image.load('assets/images/Bedroom/zoomIns/paintingZoomIn.png').convert()
  
 dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
@@ -115,9 +115,9 @@ inventoryTextThing = imageScaling(180, 40, inventoryTextThing, 0.5)
 inventoryBackground = imageScaling(0, 0, inventoryBackground, 3)
 bedroomZoomNightstand = imageScaling(0, 0, nightStandZoomIn, 1)
 bedroomZoomFloorboard = imageScaling(0, 0, floorZoomIn, 1)
-bedroomZoomRecordplyr = imageScaling(0, 0, recordplyrZoomIn, 1)
+recordPlayerZoom = imageScaling(0, 0, recordPlayerZoom, 1)
 bedroomZoomFloorboardRemoved = imageScaling(0, 0, floorboardRemovedZoomIn, 1)
-bedroomZoomRecordplyrWithRecord = imageScaling(0, 0, recordplyrWithRecordZoomIn, 1)
+bedroomZoomRecordplyrWithRecord = imageScaling(0, 0, recordPlayerWithRecordZoomIn, 1)
 bedroomZoomPainting = imageScaling(0, 0, painting, 1)
 #adding clock times individually to test
 
@@ -252,7 +252,7 @@ while run:
     backButtonRect = pygame.Rect(10, 10, 30, 30)
 
     if bedroomBed.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
-        print("Shelf one clicked")
+        print("b e d")
         bedroomZooms[1].draw()
         backButton.draw()
         pygame.display.update()
