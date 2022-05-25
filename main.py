@@ -27,8 +27,12 @@ ghost = pygame.image.load("assets\images\ghost.png").convert()
 dialogueBox = pygame.image.load("assets\images\dialogueBox.png").convert()
 
 #i dont think i have this rightTriangle = pygame.image.load("Downloads/rightTriangleThing.png").convert_alpha()
+<<<<<<< HEAD
 deskBg = pygame.image.load("assets/images/Library/backgrounds/deskBg.png")
 bookDatabase = pygame.image.load("assets/images/Library/puzzle-1/desk/bookDatabase.png")
+=======
+deskBg = pygame.image.load("assets/images/Library/backgrounds/closeup of desk.png")
+>>>>>>> a541ec53b2db14a824c9a86ec8b189b012ef67e8
 deskOpen = pygame.image.load("assets/images/Library/backgrounds/deskOpen.png")
 
 #DeskFile = pygame.image.load("assets/images/Library/backgrounds/file_inside_of_desk.png")
@@ -46,13 +50,19 @@ userBox = pygame.image.load("experimental/dialogBox.png").convert()
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BROWN = (111, 78, 55)
+Transparent = (0, 0, 0, 0)
 color_inactive = pygame.Color('lightskyblue3')
 color_active = pygame.Color('red1')
 active = False
 
-#Bible = pygame.image.load(" .................. ")
-#DancingMen = pygame.image.load(" ................ ")
-#BlankBook = pygame.image.load(" ................ ")
+#inventoryBible = pygame.image.load(" .................. ") #inventory image
+#inventoryDancingMen = pygame.image.load(" ................ ") #inventory image
+#inventoryBlankBook = pygame.image.load(" ................ ") #inventory image
+#Bible = pygame.image.load(" .............. ") #should be the vesion where we see the verses 
+#DancingMen = pygame.image.load(" .............. ") #version where we see the explanation to the dancing men cipher
+#BlankBook = pygame.image.load(" .............. ") #nothing inside until ran under water
+
+#i dont have any idea where the images for these are... if yo could please find them id be most gracious
 
 
 #work-in-progress
@@ -145,9 +155,9 @@ timerBg = imageScaling(604, 7, timerBg, 1)
 #inventory media
 keyImageButton = imageScaling(440, 180, keyImage, 0.3)
 inventoryKey = imageScaling(197, 297, keyImage, 0.1)
-#inventoryBible = imageScaling(w, x, y, z)
-#inventoryBlankBook = imageScaling(w, x, y, z)
-#inventoryDancingMen = imageScaling(w, x, y, z)
+#inventoryBible = imageScaling(w, x, inventoryBible, 0.1)
+#inventoryBlankBook = imageScaling(w, x, inventoryBlankBook, 0.1)
+#inventoryDancingMen = imageScaling(w, x, inventoryDancingMen, 0.1)
 
 inventoryIcon = imageScaling(600, 10, inventoryImage, 0.3)
 inventoryIcon2 = imageScaling(100, 300, inventoryImage, 0.4)
@@ -178,8 +188,12 @@ bookmarkHint = "Art isn't always perfect. There are often missing details."
 imageList = [allShelves, clocksArea, deskBg]
 shelfZooms = [bookshelfZoom1, bookshelfZoom2, bookshelfZoom3, bookshelfZoom4]
 clockTimes = [oneOClock, twoOClock, threeOClock, fourOClock, fiveOClock, sixOClock, sevenOClock, eightOClock, nineOClock, tenOClock, elevenOClock, twelveOClock]
+<<<<<<< HEAD
 hintsList = [clockHint,bookHint,bookmarkHint]
 inventory = []
+=======
+inventory = [inventoryKey]#, inventoryBible, inventoryBlankBook, inventoryDancingMen
+>>>>>>> a541ec53b2db14a824c9a86ec8b189b012ef67e8
 booksList = []
 inventoryOpen = False
 global userName
@@ -210,7 +224,7 @@ deskOpened = False
 
 largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 28)
 
-t = 0
+t = 1800
 timerDelay = True
 
 hintClockText = "Tick tock?"
@@ -543,7 +557,10 @@ while run:
           pygame.mixer.music.stop()
           inventory = list(set(inventory))
           print(inventory)
-          if inventoryDancingMen == True:
+          if inventoryDancingMen.collidepoint(x, y) and inventoryOpen == True and ZoomIn == False and menuOpen == False:
+            DancingMen.draw()
+            if DancingMen.collidepoint(x, y)
+            DancingMen.fill(Transparent)
 
 """
         if backButtonRect.collidepoint(x, y):
