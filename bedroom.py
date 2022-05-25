@@ -26,6 +26,7 @@ nightStandZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/nightstandZo
 floorZoomIn= pygame.image.load('assets/images/Bedroom/zoomIns/floordboardZoomIn.png').convert()
 floorboardRemovedZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/floorboardRemovedZoomIn.png').convert() 
 recordplyrZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/RecordplyrNoRecordZoomIn.png').convert()
+recordplyrWithRecordZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/RecordplyrZoomIn.png').convert()
 
  
 dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
@@ -116,6 +117,7 @@ bedroomZoomNightstand = imageScaling(0, 0, nightStandZoomIn, 1)
 bedroomZoomFloorboard = imageScaling(0, 0, floorZoomIn, 1)
 bedroomZoomRecordplyr = imageScaling(0, 0, recordplyrZoomIn, 1)
 bedroomZoomFloorboardRemoved = imageScaling(0, 0, floorboardRemovedZoomIn, 1)
+bedroomZoomRecordplyrWithRecord = imageScaling(0, 0, recordplyrWithRecordZoomIn, 1)
 #adding clock times individually to test
 
  
@@ -123,7 +125,7 @@ bedroomZoomFloorboardRemoved = imageScaling(0, 0, floorboardRemovedZoomIn, 1)
  
 #lists
 imageList = []
-bedroomZooms = [bedroomZoomNightstand, 'bedroomZoomBed', bedroomZoomRecordplyr, 'bedroomZoomPainting', bedroomZoomFloorboard, bedroomZoomFloorboardRemoved]
+bedroomZooms = [bedroomZoomNightstand, 'bedroomZoomBed', bedroomZoomRecordplyr, 'bedroomZoomPainting', bedroomZoomFloorboard, bedroomZoomFloorboardRemoved, bedroomZoomRecordplyrWithRecord]
 
 inventory = [inventoryKey, bibleInvItem]# inventoryBlankBook, inventoryDancingMen
 booksList = []
@@ -341,6 +343,12 @@ while run:
         if firstOpen == True:
             zoomIn = False
             firstOpen = False
+        if recordSelected == True and bedroomRecordplyr.collidepoint(x, y) and inventoryOpen == False and zoomIn == True:
+          bedroomZooms[6].draw()
+          recordOnPlyrRect = pygame.Rect(0, 0, screenWidth, screenHeight)
+          if recordOnPlyrRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True:
+            print('playing record')
+            mixer.Sound.play('record.wav')
     if bedroomFloorboard.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and dancingManCodeShown == True:
         print("f l o o r")
         bedroomZooms[4].draw()
