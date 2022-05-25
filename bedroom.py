@@ -17,7 +17,7 @@ pygame.display.set_caption("Menu")
 menuScreen = pygame.image.load("title/menuFullScreen.png").convert()
  
 
- 
+bedroom = pygame.image.load('assets/images/Bedroom/backgroun/bedroom.png').convert()
 #DeskFile = pygame.image.load("assets/images/Library/backgrounds/file_inside_of_desk.png")
 backButton = pygame.image.load("assets/buttons/all-screens/backButton.jpg").convert()
 leftArrow = pygame.image.load("assets/buttons/all-screens/leftArrow.jpg").convert()
@@ -85,7 +85,7 @@ class imageScaling():
  
 #images
 menuScreen = imageScaling(0, 0, menuScreen, 0.5)
-
+bedroomScreen = imageScaling(0, 0, bedroom, 1)
 #rightTriangleImage = imageScaling(445, 35, rightTriangle, 0.2)
 bibleScreen = imageScaling(0, 0, bibleOnScreen, 0.5)
 leftArrow = imageScaling(100, screenHeight/2, leftArrow, 0.3)
