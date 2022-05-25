@@ -7,7 +7,7 @@ def scene0():
   global userNameEntered
   global userText
   mixer.init()
-  mixer.music.load('assets/sounds/music/bgMusic.mp3')
+  #mixer.music.load('assets/sounds/music/bgMusic.mp3')
   mixer.music.set_volume(11)
 
   WINDOW_WIDTH = 700
@@ -41,7 +41,7 @@ def scene0():
           text_rect.center = (x, y)
           screen.blit(text_surface, text_rect)
           pygame.display.update()
-          pygame.time.wait(50)
+          pygame.time.wait(2)
 
   largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 40)
     
@@ -73,7 +73,7 @@ def scene0():
       pygame.display.update()
     
   cutScene = True
-  mixer.music.play(1)
+  #mixer.music.play(1)
   display_text_animation('It all started long ago...',320,315)
   pygame.time.wait(1000)
   display_text_animation("with a rich mansion owner...",320,315)
@@ -148,7 +148,7 @@ def scene0():
   """
 
   mixer.music.stop()
-  mixer.music.load('assets/sounds/music/SelectionMusic.mp3')
+  #mixer.music.load('assets/sounds/music/SelectionMusic.mp3')
   cutScene = False
   run = True
   userText = ''
@@ -159,7 +159,7 @@ def scene0():
 
   while run:
     if cutScene == False:
-        mixer.music.play(-1)
+        #mixer.music.play(-1)
         userNameText = largeSans.render("Enter your username to proceed...", True, (WHITE))
         directions = largeSans.render("Press RETURN when done.", True, (WHITE))
         screen.blit(userNameText, (20, 20))

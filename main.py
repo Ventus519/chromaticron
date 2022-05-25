@@ -1,6 +1,6 @@
 import pygame
 import experimental
-from leaderBoardData import savingData
+#from leaderBoardData import savingData
 from pygame import mixer
 import time
 
@@ -22,17 +22,23 @@ bookshelfZoom1 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZ
 bookshelfZoom2 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom2.png").convert()
 bookshelfZoom3 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom3.png").convert()
 bookshelfZoom4 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom4.png").convert()
+
+ghost = pygame.image.load("assets\images\ghost.png").convert()
+dialogueBox = pygame.image.load("assets\images\dialogueBox.png").convert()
+
 #i dont think i have this rightTriangle = pygame.image.load("Downloads/rightTriangleThing.png").convert_alpha()
-deskBg = pygame.image.load("assets/images/Library/backgrounds/closeup of desk.png")
-deskOpen = pygame.image.load("assets/images/Library/backgrounds/openDesk.png")
+deskBg = pygame.image.load("assets/images/Library/backgrounds/deskBg.png")
+bookDatabase = pygame.image.load("assets/images/Library/puzzle-1/desk/bookDatabase.png")
+deskOpen = pygame.image.load("assets/images/Library/backgrounds/deskOpen.png")
 
 #DeskFile = pygame.image.load("assets/images/Library/backgrounds/file_inside_of_desk.png")
+hintButton = pygame.image.load("assets/buttons/all-screens/hint.jpg").convert()
 backButton = pygame.image.load("assets/buttons/all-screens/backButton.jpg").convert()
 leftArrow = pygame.image.load("assets/buttons/all-screens/leftArrow.jpg").convert()
 rightArrow = pygame.image.load("assets/buttons/all-screens/rightArrow.jpg").convert()
 
-leverOn = pygame.image.load("assets/images/Library/puzzle-1/levers/leverOn.png").convert()
-leverOff = pygame.image.load("assets/images/Library/puzzle-1/levers/leverOff.png").convert()
+leverOn = pygame.image.load("assets/images/Library/puzzle-1/lever/leverOn.png").convert()
+leverOff = pygame.image.load("assets/images/Library/puzzle-1/lever/leverOff.png").convert()
 
 dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
 mansionImage = pygame.image.load("experimental/mansionImage.jpg").convert()
@@ -87,10 +93,10 @@ inventoryBackground = pygame.image.load("assets/images/inv/inventoryBackground.j
 
 #music
 mixer.init()
-inventoryDing = mixer.music.load("assets/sounds/effects/inventoryDing.mp3")
+inventoryDing = pygame.mixer.Sound("assets\sounds\effects\inventoryDing.wav")
 #mixer.music.set_volume(0.7)
-clueClick = mixer.music.load("assets/sounds/effects/clueClick.wav")
-bgMusic = mixer.music.load("assets/sounds/music/bgMusic.mp3")
+clueClick = pygame.mixer.Sound("assets\sounds\effects\clueClick.wav")
+#bgMusic = mixer.music.load("assets/sounds/music/bgMusic.mp3")
 #intense music lag moment
 
 
@@ -112,8 +118,13 @@ menuScreen = imageScaling(0, 0, menuScreen, 0.5)
 
 allShelves = imageScaling(0, 0, allShelves, 1.95)
 clocksArea = imageScaling(0, 0, clocksArea, 1.85)
-deskBg = imageScaling(40,0,deskBg,2.3)
+deskBg = imageScaling(40,0,deskBg,1)
+
 deskOpen = imageScaling(40,0,deskOpen,2.3)
+bookDatabase = imageScaling(250,150,bookDatabase,0.5)
+
+dialogueBox = imageScaling(40,350,dialogueBox,0.4)
+
 #DeskFile = imageScaling(40,0,DeskFile,2.3)
 bookshelfZoom1 = imageScaling(0, 0, bookshelfZoom1, 1)
 bookshelfZoom2 = imageScaling(0, 0, bookshelfZoom2, 1)
@@ -128,6 +139,7 @@ leverOn = imageScaling(435, 210, leverOn, 0.25)
 leverOff = imageScaling(435, 210, leverOff, 0.25)
 
 backButton = imageScaling(10, 10, backButton, 1)
+hintButton = imageScaling(630,10,hintButton,0.3)
 timerBg = imageScaling(604, 7, timerBg, 1)
 
 #inventory media
@@ -157,12 +169,16 @@ tenOClock = imageScaling(265, 10, tenOClock, 4)
 elevenOClock = imageScaling(265, 10, elevenOClock, 4)
 twelveOClock = imageScaling(265, 10, twelveOClock, 4)
 
-#cutscene 
+#hints
+clockHint = "Counting is fun!" 
+bookHint = "Aren't the books and shelves numbered?"
+bookmarkHint = "Art isn't always perfect. There are often missing details."
 
 #lists
 imageList = [allShelves, clocksArea, deskBg]
 shelfZooms = [bookshelfZoom1, bookshelfZoom2, bookshelfZoom3, bookshelfZoom4]
 clockTimes = [oneOClock, twoOClock, threeOClock, fourOClock, fiveOClock, sixOClock, sevenOClock, eightOClock, nineOClock, tenOClock, elevenOClock, twelveOClock]
+hintsList = [clockHint,bookHint,bookmarkHint]
 inventory = []
 booksList = []
 inventoryOpen = False
@@ -172,6 +188,7 @@ userName = ''
 #initialization
 clockIndex = 8 #clock time (it starts at 12:00)
 imageIndex = 0 #rotates images of library 
+hintIndex = 0 
 leverState = False #false until lever clicked
 keySelected = False #false until key in inventory is clicked
 
@@ -196,6 +213,16 @@ largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 28)
 t = 0
 timerDelay = True
 
+hintClockText = "Tick tock?"
+
+def hint(text):
+  dialogueBox.draw()
+  font = pygame.font.Font("fonts/OpenSans-Regular.ttf", 12)
+  text_surface = font.render(text, True, WHITE)
+  text_rect = text_surface.get_rect()
+  text_rect.center = (330, 385)
+  screen.blit(text_surface, text_rect)
+
 while run:
   #testing music
   #pygame.mixer.music.play(-1)
@@ -208,11 +235,11 @@ while run:
     imageList[imageIndex].draw()
     leftArrow.draw()
     rightArrow.draw()
+    hintButton.draw()
     imageOne = False
     pygame.display.update()
 
-  
-  while t > 0 and timerDelay == False: 
+  '''while t > 0 and timerDelay == False:
     mins = t // 60
     secs = t % 60
     timer = '{:02d}:{:02d}'.format(mins, secs)
@@ -224,33 +251,63 @@ while run:
     timerDelay = True
     time.sleep(1)
     timerDelay = False
-    t -= 1
+    t -= 1'''
   
   if imageIndex == 1 and clocksIteration == True:
     imageList[imageIndex].draw()
     clockTimes[clockIndex].draw()
     leftArrow.draw()
     rightArrow.draw()
-    rightTriangleImage.draw()
+    hintButton.draw()
+    #rightTriangleImage.draw()
     if leverState == False:
       leverOff.draw()
     if leverState == True:
       leverOn.draw()
     clocksIteration = False
+    hint(hintClockText)
     pygame.display.update()
 
   if imageIndex == 2 and inventoryOpen == False: 
-    if deskOpened == True:
+    '''if deskOpened == True:
       deskOpen.draw()
       leftArrow.draw()
       rightArrow.draw()
+      hintButton.draw()
       pygame.display.update()
           
     if deskOpened == False:
       deskBg.draw()
       leftArrow.draw()
       rightArrow.draw()
-      pygame.display.update()
+      hintButton.draw()
+      pygame.display.update()'''
+    deskRect = pygame.Rect(365, 240, 160, 145)
+    backButtonRect2 = pygame.Rect(10, 10, 30, 30)
+    if deskRect.collidepoint(x, y):
+      if keySelected == True and deskOpened == False:
+        deskOpen.draw()
+        print("Desk opened.")
+        deskOpened = True
+        leftArrow.draw()
+        rightArrow.draw()
+        inventory.remove("Key")
+        #pygame.display.update()
+      elif keySelected == False:
+        print("You have not obtained the key yet")
+    if deskOpened == True:
+      print("Database here")
+      bookDatabase.draw()
+      backButton.draw()
+      deskDatabase = True
+      #pygame.display.update()
+
+    if backButtonRect2.collidepoint(x, y) and deskOpened == True:
+      screen.fill(BLACK)
+      deskDatabase = False
+      deskOpen.draw()
+      leftArrow.draw()
+      rightArrow.draw()
 
   #for all rooms
 
@@ -298,6 +355,7 @@ while run:
       x, y = event.pos
       leftArrowRect = pygame.Rect(100, 200, 30, 30)
       rightArrowRect = pygame.Rect(540, 200, 30, 30)
+      hintButtonRect = pygame.Rect(630, 10, 30, 30)
       startButtonRect = pygame.Rect(455, 100, 135, 50)
       optionsButtonRect = pygame.Rect(455, 180, 130, 50)
       rankingButtonRect = pygame.Rect(455, 260, 130, 50)
@@ -318,7 +376,7 @@ while run:
           print("Username entered")
           userName = experimental.userText
           imageOne = True
-          savingData()
+          #savingData()
         startClicked = True
         t = 1800
         timerDelay = False
@@ -402,6 +460,12 @@ while run:
           firstOpen = True
           imageOne = True
           print(imageIndex)
+          pygame.display.update()
+      
+      if hintButtonRect.collidepoint(x,y):
+          hint(hintsList[hintIndex])
+          print(hintsList[hintIndex])
+          print("hint displayed")
           pygame.display.update()
 
       if imageIndex == 0 and startClicked == True:
@@ -488,9 +552,11 @@ while run:
 
       #clocks
       if imageIndex == 1:
+        print("clock hint displayed")
         clockRect = pygame.Rect(280, 20, 120, 100)
         leverRect = pygame.Rect(435, 210, 65, 45)
         keyRect = pygame.Rect(485, 215, 110, 110)
+
         #runs when clock clicked
         if clockRect.collidepoint(x, y) and inventoryOpen == False:
           if clockIndex != 11:
@@ -507,6 +573,7 @@ while run:
             clockIndex+=1
             clockTimes[clockIndex].draw()
             pygame.display.update()
+          
             
         #runs when lever clicked
         if leverRect.collidepoint(x, y) and inventoryOpen == False:
@@ -520,6 +587,10 @@ while run:
               mixer.Sound.play(clueClick)
               print("Correct!")
               keyImageButton.draw()
+              hintClockText = "Clicking on the key will place it in your inventory. Press E to access your inventory."
+              hint(hintClockText)
+              hintClockText = "Good Job! There's nothing else to do on this side of the room..."
+              hintIndex += 1
             else:
               print("Don't you dare to guess again!")
             pygame.display.update()
@@ -528,6 +599,7 @@ while run:
             leverOff.draw()
             pygame.display.update()
             leverState = False
+          
           
       #adds key to inventory
         if keyRect.collidepoint(x, y) and clockIndex == 4 and inventoryOpen == False:
@@ -541,7 +613,7 @@ while run:
           pygame.mixer.music.stop()
           inventory = list(set(inventory))
           print(inventory)
-
+          pygame.display.update()
 
       #inventory
       if inventoryOpen == True:
