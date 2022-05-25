@@ -7,7 +7,7 @@ def savingData():
     import experimental
     import random
 
-  '''  scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
     credentials = ServiceAccountCredentials.from_json_keyfile_name("Downloads/leaderboardreplit-5d64a6579d9e.json", scope)
 
@@ -30,4 +30,3 @@ def savingData():
     headers = sheetOne.row_values(1)
     print(tabulate(leaderBoard, headers, tablefmt = "fancy"))
     return userName
-'''
