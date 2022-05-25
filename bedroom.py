@@ -22,7 +22,10 @@ bedroom = pygame.image.load('assets/images/Bedroom/backgroun/bedroom.png').conve
 backButton = pygame.image.load("assets/buttons/all-screens/backButton.jpg").convert()
 leftArrow = pygame.image.load("assets/buttons/all-screens/leftArrow.jpg").convert()
 rightArrow = pygame.image.load("assets/buttons/all-screens/rightArrow.jpg").convert()
- 
+nightStandZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/nightstandZoomIn.png').convert()
+floorZoomIn= pygame.image.load('assets/images/Bedroom/zoomIns/floordboardZoomIn.png').convert()
+floorboardRemovedZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/floorboardRemovedZoomIn.png').convert() 
+recordplyrZoomIn = pygame.image.load('assets/images/Bedroom/zoomIns/RecordplyrNoRecordZoomIn.png').convert()
 
  
 dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
@@ -109,7 +112,10 @@ inventoryIcon2 = imageScaling(100, 300, inventoryImage, 0.4)
 inventoryHotbar = imageScaling(200, 300, inventoryHotbar, 0.5)
 inventoryTextThing = imageScaling(180, 40, inventoryTextThing, 0.5)
 inventoryBackground = imageScaling(0, 0, inventoryBackground, 3)
- 
+bedroomZoomNightstand = imageScaling(0, 0, nightStandZoomIn, 1)
+bedroomZoomFloorboard = imageScaling(0, 0, floorZoomIn, 1)
+bedroomZoomRecordplyr = imageScaling(0, 0, recordplyrZoomIn, 1)
+bedroomZoomFloorboardRemoved = imageScaling(0, 0, floorboardRemovedZoomIn, 1)
 #adding clock times individually to test
 
  
@@ -117,7 +123,7 @@ inventoryBackground = imageScaling(0, 0, inventoryBackground, 3)
  
 #lists
 imageList = []
-bedroomZooms = ['bedroomZoomNightstand', 'bedroomZoomBed', 'bedroomZoomRecordplyr', 'bedroomZoomPainting', 'bedroomZoomFloorboard']
+bedroomZooms = [bedroomZoomNightstand, 'bedroomZoomBed', bedroomZoomRecordplyr, 'bedroomZoomPainting', bedroomZoomFloorboard, bedroomZoomFloorboardRemoved]
 
 inventory = [inventoryKey, bibleInvItem]# inventoryBlankBook, inventoryDancingMen
 booksList = []
@@ -128,6 +134,7 @@ userName = ''
 #initialization
 keySelected = False #false until key in inventory is clicked
 bibleSelected = False
+recordSelected = False
  
 run = True
 imageOne = False  #used to cycle images and put arrows
@@ -243,7 +250,7 @@ while run:
 
     if bedroomBed.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
         print("Shelf one clicked")
-        bedroomZooms[0].draw()
+        bedroomZooms[1].draw()
         backButton.draw()
         pygame.display.update()
         zoomIn = True
@@ -264,7 +271,7 @@ while run:
         
     if bedroomNightstand.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
         print("nightstand")
-        bedroomZooms[1].draw()
+        bedroomZooms[0].draw()
         backButton.draw()
         pygame.display.update()
         zoomIn = True
@@ -336,18 +343,19 @@ while run:
             firstOpen = False
     if bedroomFloorboard.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and dancingManCodeShown == True:
         print("f l o o r")
-        bedroomZooms[3].draw()
+        bedroomZooms[4].draw()
         backButton.draw()
         zoomIn = True
-        bibleRect = pygame.Rect(0 , 0, screenWidth, screenHeight)
+        removableFloorboard = pygame.Rect(0 , 0, screenWidth, screenHeight)
+        if removableFloorboard.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and dancingManCodeShown == True:
+          bedroomZooms[5].draw()
         #pygame.rect(BLACK)
-        pygame.display.update()
 
         #if DancingMenRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and menuOpen == False
     
     if bedroomPainting.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
         print('PAINTING TIME!')
-        bedroomZooms[4].draw()
+        bedroomZooms[3].draw()
         paintingZoomRect = pygame.Rect(0, 0, screenWidth, screenHeight)
         if paintingZoomRect.collidepoint(x, y) and 'recordPlayed' == True:
             'paintingFlipped'.draw()
