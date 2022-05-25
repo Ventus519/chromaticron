@@ -123,7 +123,7 @@ allShelves = imageScaling(0, 0, allShelves, 1.95)
 clocksArea = imageScaling(0, 0, clocksArea, 1.85)
 deskBg = imageScaling(40,0,deskBg,2.3)
 deskOpen = imageScaling(40,0,deskOpen,2.3)
-bibleScreen = imageScaling(0, 0, bibleOnScreen, 2.5)
+bibleScreen = imageScaling(0, 0, bibleOnScreen, 0.5)
 #DeskFile = imageScaling(40,0,DeskFile,2.3)
 bookshelfZoom1 = imageScaling(0, 0, bookshelfZoom1, 1)
 bookshelfZoom2 = imageScaling(0, 0, bookshelfZoom2, 1)
@@ -498,10 +498,7 @@ while run:
  
           if bibleRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and menuOpen == False:
             print('Bible has been interacted with')
-            if inventory[1] is not 'Bible':
-              inventory[1] = 'Bible'
-            else:
-              inventory[1] ='Bible'
+            inventory[1] = 'Bible'
             mixer.Sound.play(inventoryDing)
             inventory = list(set(inventory))
             print(inventory)
@@ -605,7 +602,7 @@ while run:
             if inventory[1] == 'Bible':
               bibleSelectedRect = pygame.draw.rect(screen, (220, 20, 60),  pygame.Rect(0, 0, 700, 700), 2)
               bibleSelected = True
-            elif inventory[1] == 'Key':
+            if inventory[1] == 'Key':
               keySelectedRect = True
               keySelected = True
           except:
