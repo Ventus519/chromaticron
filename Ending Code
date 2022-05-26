@@ -116,28 +116,12 @@ def scene0():
   display_text_animation("I hope to see you someday, for i'll be sent back to my time.", 320, 315) 
   pygame.time.wait(500)
   display_text_animation("Maybe someday... we'll get the luxury of meeting each other. :)", 320, 315) 
+  pygame.time.wait(1500)
+  display_text_animation("As all the furniture from the past begins to fade out... you think to yourself 'this world is truly a mystery, yet to be understood'.", 320, 315) 
   pygame.time.wait(500)
 
 
   fadeout()
-  #are we going to describe the cutscene part of going into the mansion, old decor/furniture, door flips/locks, or no? -titiksha
-  #I agree with explaining that. its very important or else the key would be unessecary to escape
-
-  """
-  display_text_animation("As you enter the mansion, you are mysteriously pushed forward...", 320,315)
-  pygame.time.wait(500)
-  display_text_animation("and the door flipped inside out.", 320,315)
-  pygame.time.wait(500)
-  display_text_animation("Now the only way to get out is to find the key which opens the door...", 320,315)
-  pygame.time.wait(500)
-  display_text_animation("With nowhere else to go, you reluctantly enter the library.", 315, 320)
-  '''
-  #not too sure about this portion. If you guys want it we can keep it.
-  display_text_animation("To do what no one else could...", 320,315)
-  pygame.time.wait(500)
-  display_text_animation("and live your predecessor's dreams.", 320,315)'''
-  """
-
   mixer.music.stop()
   #mixer.music.load('assets/sounds/music/SelectionMusic.mp3')
   cutScene = False
