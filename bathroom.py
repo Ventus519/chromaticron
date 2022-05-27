@@ -216,7 +216,7 @@ hammerSelected = True
 slotThreeInsert = False
 water = False
 largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 28)
-
+mixer.music.load('assets/sounds/music/SelectionMusic.wav')
 t = 1800
 timerDelay = True
 
@@ -395,7 +395,7 @@ while run:
         #ZoomExitButton.draw()
         #BathroomMirror.draw()
       if BathroomArea == False and bathroom == True:
-        #mixer.music.play(-1)
+        mixer.music.play(-1)
         ZoomExitButtonRect = pygame.Rect(10, 10, 30, 30)
         sinkRect = pygame.Rect(470, 204, 90, 43)
         BathroomMirrorRect = pygame.Rect(475, 58, 104, 140) #589, 207
