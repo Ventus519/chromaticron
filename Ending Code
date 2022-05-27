@@ -1,141 +1,153 @@
-def scene0():
-  from pygame import mixer
-  import pygame
-  import sys
-  import textwrap
-  #this music is mainly to test unless it is widely accepted.3 If using headphones make sure to click the check box at the bottom right of the game window
-  global userNameEntered
-  global userText
-  mixer.init()
-  #mixer.music.load('assets/sounds/music/bgMusic.mp3')
-  mixer.music.set_volume(11)
+import pygame
+from pygame import mixer
+import sys
+import textwrap
+#this music is mainly to test unless it is widely accepted.3 If using headphones make sure to click the check box at the bottom right of the game window
+global userNameEntered
+global userText
+mixer.init()
+#mixer.music.load('assets/sounds/music/bgMusic.mp3')
+mixer.music.set_volume(11)
 
-  WINDOW_WIDTH = 700
-  WINDOW_HEIGHT = 400
-  animationDone = False
-  clock = pygame.time.Clock()
-  pygame.init()
-  screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-  dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
-  mansionImage = pygame.image.load("experimental/mansionImage.jpg").convert()
-  userBox = pygame.image.load("experimental/dialogBox.png").convert()
-  #skipButton = pygame.image.load("experimental/skipButtonPLACEHOLDER.png").convert()
+WINDOW_WIDTH = 700
+WINDOW_HEIGHT = 400
+animationDone = False
+clock = pygame.time.Clock()
+pygame.init()
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
+mansionImage = pygame.image.load("experimental/mansionImage.jpg").convert()
+userBox = pygame.image.load("experimental/dialogBox.png").convert()
+#skipButton = pygame.image.load("experimental/skipButtonPLACEHOLDER.png").convert()
 
-  WHITE = (255, 255, 255)
-  BLACK = (0, 0, 0)
-  BROWN = (111, 78, 55)
-  color_inactive = pygame.Color('lightskyblue3')
-  color_active = pygame.Color('red1')
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BROWN = (111, 78, 55)
+color_inactive = pygame.Color('lightskyblue3')
+color_active = pygame.Color('red1')
+
+
+def display_text_animation(string,x,y):
+    text = ''
+    for i in range(len(string)):
+        text += string[i]
+        screen.fill(BROWN)
+        font = pygame.font.Font("fonts/OpenSans-Regular.ttf", 17)
+        text_surface = font.render(text, True, WHITE)
+        mansionImage.draw()
+        dialogBox.draw()
+        text_rect = text_surface.get_rect()
+        text_rect.center = (x, y)
+        screen.blit(text_surface, text_rect)
+        pygame.display.update()
+        pygame.time.wait(35)
+
+largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 40)
   
+class imageScaling():
+  def __init__(self, x, y, image, scale):
+    width = image.get_width()
+    height = image.get_height()
+    self.image = pygame.transform.scale(
+        image, (int(width * scale), int(height * scale)))
+    self.rect = self.image.get_rect()
+    self.rect.topleft = (x, y)
 
-  def display_text_animation(string,x,y):
-      text = ''
-      for i in range(len(string)):
-          text += string[i]
-          screen.fill(BROWN)
-          font = pygame.font.Font("fonts/OpenSans-Regular.ttf", 17)
-          text_surface = font.render(text, True, WHITE)
-          mansionImage.draw()
-          dialogBox.draw()
-          text_rect = text_surface.get_rect()
-          text_rect.center = (x, y)
-          screen.blit(text_surface, text_rect)
-          pygame.display.update()
-          pygame.time.wait(2)
+  def draw(self):
+    screen.blit(self.image, (self.rect.x, self.rect.y))
 
-  largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 40)
-    
-  class imageScaling():
-    def __init__(self, x, y, image, scale):
-      width = image.get_width()
-      height = image.get_height()
-      self.image = pygame.transform.scale(
-          image, (int(width * scale), int(height * scale)))
-      self.rect = self.image.get_rect()
-      self.rect.topleft = (x, y)
+dialogBox = imageScaling(40, 290, dialogBox, 0.4)
+mansionImage = imageScaling(130, 0, mansionImage, 0.65)
+userBox = imageScaling(30, 160, userBox, 0.4)
 
-    def draw(self):
-      screen.blit(self.image, (self.rect.x, self.rect.y))
+def fadeout():
+  global animationDone
+  animationDone = True
+  fadeout = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
+  fadeout = fadeout.convert()
+  fadeout.fill(BLACK)
+  for i in range(255):
+    fadeout.set_alpha(i)
+    screen.blit(fadeout, (0, 0))
+    pygame.display.update()
+  
+cutScene = True
+#mixer.music.play(1)
 
-  dialogBox = imageScaling(40, 290, dialogBox, 0.4)
-  mansionImage = imageScaling(130, 0, mansionImage, 0.65)
-  userBox = imageScaling(30, 160, userBox, 0.4)
+VictorySpeech = textwrap.wrap("You can't believe it... you barely made it out of the mansion as you watch it explode from the outside. But suddenly you are teleported into a different dimension where you are greeted by the ghosts that have been helping you throughout the game! ",70, break_long_words = False)
 
-  def fadeout():
-    global animationDone
-    animationDone = True
-    fadeout = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
-    fadeout = fadeout.convert()
-    fadeout.fill(BLACK)
-    for i in range(255):
-      fadeout.set_alpha(i)
-      screen.blit(fadeout, (0, 0))
-      pygame.display.update()
-    
-  cutScene = True
-  #mixer.music.play(1)
+for line in VictorySpeech:
+  display_text_animation(line,320,315)
+  
+print(VictorySpeech)
 
-  VictorySpeech = textwrap.wrap("You can't believe it... you barely made it out of the mansion as you watch it explode from the outside. But suddenly you are teleported into a different dimension where you are greeted by the ghosts that have been helping you throughout the game! ",70, break_long_words = False)
+#display_text_animation()
+pygame.time.wait(4000)
+display_text_animation("Ghosts: Thank you great hero.", 320, 315)
+pygame.time.wait
+display_text_animation("Some of us have been stuck in there for an eternity.", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("We didn't know what'd happened when we got trapped in the mansion,", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("but after some long years of analyzing the owner....", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("We found out that he had constructed this mansion as his final memoir.", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("Only the most worthy individual...", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("would be able to solve all the puzzles that were designed by him...", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("And you.....", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("were able to pass all of Mr. Byrne's trials making you the worthy heir.", 320, 315)
+pygame.time.wait(1000)
+# mixer.music.pause()
+fadeout()
+# mixer.music.resume()
+pygame.time.wait(4000)
 
-  for line in VictorySpeech:
-    display_text_animation(line,320,315)
-    
-  print(VictorySpeech)
-
-  #display_text_animation()
-  pygame.time.wait(5000)
-  display_text_animation("Ghosts: Thank you great hero. Some of us have been stuck in there for what seemed like an eternity.", 320, 315)
-  pygame.time.wait(500)
-  display_text_animation("We didnt know what had happened when we first got trapped in this mansion, but after some long years of analyzing the owner....", 320, 315)
-  pygame.time.wait(500)
-  display_text_animation("We found out that he had constructed this mansion as his final memoir.", 320, 315)
-  pygame.time.wait(500)
-  display_text_animation("Only the most worthy individual would be able to solve all the intricate puzzles that were designed by him...", 320, 315)
-  pygame.time.wait(500)
-  display_text_animation("And you..... were able to pass all of Mr. Byrne's trials making you the worthy heir.", 320, 315)
-  pygame.time.wait(500)
-  # mixer.music.pause()
-  fadeout()
-  # mixer.music.resume()
-  pygame.time.wait(5000)
-
-  display_text_animation("Ever since you stepped foot on the mansion, I could feel something about you that was different", 320,315)
-  pygame.time.wait(500)
-  display_text_animation("a mystical force that compelled me to help you...", 320,315)
-  pygame.time.wait(500)
-  display_text_animation("when you solved the first puzzle I instantly knew that you were the chosen one...", 320,315)
-  pygame.time.wait(500)
-  display_text_animation("Now that you have cleared the mansion and have the key...", 320, 315)
-  pygame.time.wait(500)
-  display_text_animation("its is yours too keep and we 47 ghost, are finally freed. Thank you!", 320, 315)
-  pygame.time.wait(500)
-  display_text_animation("The 69 morbillion dollars, mansion, and 420 priceless artifacts are now yours too keep.", 320, 315)
-  pygame.time.wait(500)
-  display_text_animation("If you don't want it then i'll take it....", 320, 315)
-  pygame.time.wait(500)
-  display_text_animation("I hope to see you someday, for i'll be sent back to my time.", 320, 315) 
-  pygame.time.wait(500)
-  display_text_animation("Maybe someday... we'll get the luxury of meeting each other. :)", 320, 315) 
-  pygame.time.wait(1500)
-  display_text_animation("As all the furniture from the past begins to fade out... you think to yourself 'this world is truly a mystery, yet to be understood'.", 320, 315) 
-  pygame.time.wait(500)
+display_text_animation("Ever since you stepped foot on the mansion...", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("I could feel something about you that was different", 320,315)
+pygame.time.wait(1000)
+display_text_animation("a mystical force that compelled me to help you...", 320,315)
+pygame.time.wait(1000)
+display_text_animation("when you solved the first puzzle...", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("I instantly knew that you were the chosen one...", 320,315)
+pygame.time.wait(1000)
+display_text_animation("Now that you have cleared the mansion and have the key...", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("its is yours too keep and we, 47 ghost, are finally freed. Thank you!", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("The priceless historical value of this mansion are now yours too keep.", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("If you don't want it then i'll take it....", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("I hope to see you someday, for i'll be sent back to my time.", 320, 315) 
+pygame.time.wait(1000)
+display_text_animation("Maybe someday... we'll get the luxury of meeting each other. :)", 320, 315) 
+pygame.time.wait(5000)
+display_text_animation("As all the furniture from the past begins to fade out...", 320, 315)
+pygame.time.wait(1000)
+display_text_animation("you think to yourself 'this world is truly a mystery, yet to be understood'    .", 320, 315)
 
 
-  fadeout()
-  mixer.music.stop()
-  #mixer.music.load('assets/sounds/music/SelectionMusic.mp3')
-  cutScene = False
-  run = True
-  userText = ''
-  font = pygame.font.Font('fonts/OpenSans-Regular.ttf', 32)
-  clickedBox = False
-  textBox = pygame.Rect(30, 155, 630, 135)
-  userNameEntered = False
+fadeout()
+mixer.music.stop()
+#mixer.music.load('assets/sounds/music/SelectionMusic.mp3')
+cutScene = False
+run = True
+userText = ''
+font = pygame.font.Font('fonts/OpenSans-Regular.ttf', 32)
+clickedBox = False
+textBox = pygame.Rect(30, 155, 630, 135)
+userNameEntered = False
 
-  while run:
+while run:
 
-      text_surface = font.render(userText, True, WHITE)
-      screen.blit(text_surface, (textBox.x+5, textBox.y+5))
-      textBox.w = max(650, text_surface.get_width()+10)
-      pygame.display.flip()
-      clock.tick(60)
+  text_surface = font.render(userText, True, WHITE)
+  screen.blit(text_surface, (textBox.x+5, textBox.y+5))
+  textBox.w = max(650, text_surface.get_width()+10)
+  pygame.display.flip()
+  clock.tick(60)
