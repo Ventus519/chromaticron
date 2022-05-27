@@ -1,53 +1,44 @@
 import pygame
-from bedroom import bedroomScene
 import experimental
 from leaderBoardData import savingData
 from pygame import mixer
 import time
- 
+
 clock = pygame.time.Clock()
 clock.tick(60)
 screenHeight = 400
 screenWidth = 700
- 
+
 pygame.init()
-def fadeout():
-    global animationDone
-    animationDone = True
-    fadeout = pygame.Surface((screenWidth, screenHeight))
-    fadeout = fadeout.convert()
-    fadeout.fill(BLACK)
-    for i in range(255):
-      fadeout.set_alpha(i)
-      screen.blit(fadeout, (0, 0))
-      pygame.display.update()
- 
+
 #loading images and game sizing
 screen = pygame.display.set_mode((screenWidth, screenHeight))
+brokenMirror = pygame.image.load('assets/images/Bathroom/brokenMirrorKey.png').convert()
 pygame.display.set_caption("Menu")
 menuScreen = pygame.image.load("title/menuFullScreen.png").convert()
- 
+BathroomMirror = pygame.image.load("assets/images/Bathroom/BathroomMirror.png").convert_alpha()
 allShelves = pygame.image.load("assets/images/Library/backgrounds/allShelves.png").convert()
+sinkImg = pygame.image.load('assets/images/Bathroom/bathroomSink.png').convert()
 clocksArea = pygame.image.load("assets/images/Library/backgrounds/clocksArea.png").convert()
 bookshelfZoom1 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom1.png").convert()
 bookshelfZoom2 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom2.png").convert()
 bookshelfZoom3 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom3.png").convert()
 bookshelfZoom4 = pygame.image.load("assets/images/Library/backgrounds/bookshelfZoom4.png").convert()
-bibleSpine = pygame.image.load('assets/images/Library/books/bibleBook.png')
 #i dont think i have this rightTriangle = pygame.image.load("Downloads/rightTriangleThing.png").convert_alpha()
 deskBg = pygame.image.load("assets/images/Library/backgrounds/closeup of desk.png")
-deskOpen = pygame.image.load("assets/images/Library/backgrounds/openDesk.png")
-bibleOnScreen = pygame.image.load('assets/images/Library/booksOnScreen/bibleOnScreen.png').convert_alpha()
- 
+deskOpen = pygame.image.load("assets/images/Library/backgrounds/deskOpen.png")
+fog = pygame.image.load('assets/images/Bathroom/FoggedMirror.png')
+
 #DeskFile = pygame.image.load("assets/images/Library/backgrounds/file_inside_of_desk.png")
 backButton = pygame.image.load("assets/buttons/all-screens/backButton.jpg").convert()
 leftArrow = pygame.image.load("assets/buttons/all-screens/leftArrow.jpg").convert()
 rightArrow = pygame.image.load("assets/buttons/all-screens/rightArrow.jpg").convert()
- 
+
 leverOn = pygame.image.load("assets/images/Library/puzzle-1/lever/leverOn.png").convert()
 leverOff = pygame.image.load("assets/images/Library/puzzle-1/lever/leverOff.png").convert()
- 
+
 dialogBox = pygame.image.load("experimental/dialogueBox.png").convert()
+sinkWater = pygame.image.load("assets/images/Bathroom/waterSink.png").convert()
 mansionImage = pygame.image.load("experimental/mansionImage.jpg").convert()
 userBox = pygame.image.load("experimental/dialogBox.png").convert()
 WHITE = (255, 255, 255)
@@ -57,19 +48,19 @@ Transparent = (0, 0, 0, 0)
 color_inactive = pygame.Color('lightskyblue3')
 color_active = pygame.Color('red1')
 active = False
- 
+
 #inventoryBible = pygame.image.load(" .................. ") #inventory image
 #inventoryDancingMen = pygame.image.load(" ................ ") #inventory image
 #inventoryBlankBook = pygame.image.load(" ................ ") #inventory image
-#Bible = pygame.image.load(" .............. ") #should be the vesion where we see the verses
+#Bible = pygame.image.load(" .............. ") #should be the vesion where we see the verses 
 #DancingMen = pygame.image.load(" .............. ") #version where we see the explanation to the dancing men cipher
 #BlankBook = pygame.image.load(" .............. ") #nothing inside until ran under water
- 
+
 #i dont have any idea where the images for these are... if yo could please find them id be most gracious
- 
- 
+
+
 #work-in-progress
- 
+
 oneOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/1clock.png").convert_alpha()
 twoOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/2clock.png").convert_alpha()
 threeOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/3clock.png").convert_alpha()
@@ -82,9 +73,10 @@ nineOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/9clock.png
 tenOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/10clock.png").convert_alpha()
 elevenOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/11clock.png").convert_alpha()
 twelveOClock = pygame.image.load("assets/images/Library/puzzle-1/clocks/12clock.png").convert_alpha()
+Bathrooombg = pygame.image.load("assets/images/Bathroom/Bathroombg.png").convert()
 timerBg = pygame.image.load("title/timerBg.jpg").convert()
- 
- 
+
+
 '''oneOClock = pygame.image.load("1clockold.png").convert_alpha()
 twoOClock = pygame.image.load("2clockold.png").convert_alpha()
 threeOClock = pygame.image.load("3clockold.png").convert_alpha()
@@ -97,23 +89,22 @@ nineOClock = pygame.image.load("9clockold.png").convert_alpha()
 tenOClock = pygame.image.load("10clockold.png").convert_alpha()
 elevenOClock = pygame.image.load("11clockold.png").convert_alpha()
 twelveOClock = pygame.image.load("12clockold.png").convert_alpha()'''
- 
+
 inventoryImage = pygame.image.load("assets/images/inv/inventoryIcon.png").convert_alpha()
 inventoryHotbar = pygame.image.load("assets/images/inv/inventoryHotbar.png").convert_alpha()
 inventoryTextThing = pygame.image.load("assets/images/inv/inventoryTextThing.png").convert_alpha()
 keyImage = pygame.image.load("assets/images/inv/keyImage.png").convert_alpha()
-bibleInv = pygame.image.load('assets/images/inv/bibleInv.png').convert_alpha()
 inventoryBackground = pygame.image.load("assets/images/inv/inventoryBackground.jpeg").convert_alpha()
- 
+
 #music
 mixer.init()
-inventoryDing = mixer.Sound("assets/sounds/effects/inventoryDing.wav")
+inventoryDing = mixer.Sound("assets/sounds/effects/inventoryDing.mp3")
 #mixer.music.set_volume(0.7)
 clueClick = mixer.Sound("assets/sounds/effects/clueClick.wav")
-bgMusic = mixer.Sound("assets/sounds/music/bgMusic.wav")
+#bgMusic = mixer.music.load("assets/sounds/music/bgMusic.mp3")
 #intense music lag moment
- 
- 
+BathroomArea = False
+
 #classes for defining image, scale, and location
 class imageScaling():
   def __init__(self, x, y, image, scale):
@@ -123,48 +114,51 @@ class imageScaling():
         image, (int(width * scale), int(height * scale)))
     self.rect = self.image.get_rect()
     self.rect.topleft = (x, y)
- 
+
   def draw(self):
      screen.blit(self.image, (self.rect.x, self.rect.y))
- 
+
 #images
 menuScreen = imageScaling(0, 0, menuScreen, 0.5)
-bibleBookSpine = imageScaling( 200, 200, bibleSpine, 0.1 )
+brokenMirrorScreen = imageScaling(0, 0, brokenMirror, 1)
+foggedMirror = imageScaling(0, 0, fog, 1)
 allShelves = imageScaling(0, 0, allShelves, 1.95)
 clocksArea = imageScaling(0, 0, clocksArea, 1.85)
+BathroomScreen = imageScaling(0, 0, Bathrooombg, 2.5)
+BathroomMirrorScreen = imageScaling(0, 0, BathroomMirror, 1)
+sinkScreen = imageScaling(0, 0, sinkImg, 3)
 deskBg = imageScaling(40,0,deskBg,2.3)
 deskOpen = imageScaling(40,0,deskOpen,2.3)
-bibleScreen = imageScaling(0, 0, bibleOnScreen, 0.5)
 #DeskFile = imageScaling(40,0,DeskFile,2.3)
 bookshelfZoom1 = imageScaling(0, 0, bookshelfZoom1, 1)
 bookshelfZoom2 = imageScaling(0, 0, bookshelfZoom2, 1)
 bookshelfZoom3 = imageScaling(0, 0, bookshelfZoom3, 1)
+sinkWaterScreen = imageScaling(0, 0, sinkWater, 3)
 bookshelfZoom4 = imageScaling(0, 0, bookshelfZoom4, 1)
 #rightTriangleImage = imageScaling(445, 35, rightTriangle, 0.2)
- 
+
 leftArrow = imageScaling(100, screenHeight/2, leftArrow, 0.3)
 rightArrow = imageScaling(540, screenHeight/2, rightArrow, 0.3)
- 
+
 leverOn = imageScaling(435, 210, leverOn, 0.25)
 leverOff = imageScaling(435, 210, leverOff, 0.25)
- 
+
 backButton = imageScaling(10, 10, backButton, 1)
 timerBg = imageScaling(604, 7, timerBg, 1)
- 
+
 #inventory media
 keyImageButton = imageScaling(440, 180, keyImage, 0.3)
 inventoryKey = imageScaling(197, 297, keyImage, 0.1)
-bibleInvItem = imageScaling(237, 297, bibleInv, 0.15)
 #inventoryBible = imageScaling(w, x, inventoryBible, 0.1)
 #inventoryBlankBook = imageScaling(w, x, inventoryBlankBook, 0.1)
 #inventoryDancingMen = imageScaling(w, x, inventoryDancingMen, 0.1)
- 
+
 inventoryIcon = imageScaling(600, 10, inventoryImage, 0.3)
 inventoryIcon2 = imageScaling(100, 300, inventoryImage, 0.4)
 inventoryHotbar = imageScaling(200, 300, inventoryHotbar, 0.5)
 inventoryTextThing = imageScaling(180, 40, inventoryTextThing, 0.5)
 inventoryBackground = imageScaling(0, 0, inventoryBackground, 3)
- 
+
 #adding clock times individually to test
 oneOClock = imageScaling(265, 10, oneOClock, 4)
 twoOClock = imageScaling(265, 10, twoOClock, 4)
@@ -178,47 +172,53 @@ nineOClock = imageScaling(265, 10, nineOClock, 4)
 tenOClock = imageScaling(265, 10, tenOClock, 4)
 elevenOClock = imageScaling(265, 10, elevenOClock, 4)
 twelveOClock = imageScaling(265, 10, twelveOClock, 4)
- 
-#cutscene
- 
+
+#cutscene 
+
 #lists
-imageList = [allShelves, clocksArea, deskBg, bibleScreen]
+imageList = [allShelves, clocksArea, deskBg]
 shelfZooms = [bookshelfZoom1, bookshelfZoom2, bookshelfZoom3, bookshelfZoom4]
 clockTimes = [oneOClock, twoOClock, threeOClock, fourOClock, fiveOClock, sixOClock, sevenOClock, eightOClock, nineOClock, tenOClock, elevenOClock, twelveOClock]
-inventory = [inventoryKey, bibleInvItem]# inventoryBlankBook, inventoryDancingMen
+inventory = [inventoryKey]#, inventoryBible, inventoryBlankBook, inventoryDancingMen
 booksList = []
 inventoryOpen = False
 global userName
 userName = ''
- 
+
 #initialization
 clockIndex = 8 #clock time (it starts at 12:00)
-imageIndex = 0 #rotates images of library
+imageIndex = 0 #rotates images of library 
 leverState = False #false until lever clicked
 keySelected = False #false until key in inventory is clicked
-bibleSelected = False
- 
-run = True
+
+run = True 
 imageOne = False  #used to cycle images and put arrows
 clocksIteration = True #avoid stacked images and lag
- 
+
 menuOpen = True #will say menu is open until startButton clicked
 menuImage = True #avoid stacked images and lag
- 
+
 zoomIn = False #checks if user zoomed into certain shelves
 firstOpen = True #if user clicks bookshelf for first time, game bugs out (this is a temporary solution)
- 
+mirror = False
 optionsClicked = False
 leaderBoardClicked = False
 startClicked = False
- 
+sink = False
+bathroom = False
+Turner = True
 deskOpened = False
-libraryCompleted = False
+faucet = False
+slotOneInsert = False
+slotTwoInsert = False
+hammerSelected = True
+slotThreeInsert = False
+water = False
 largeSans = pygame.font.Font("fonts/OpenSans-Regular.ttf", 28)
- 
+
 t = 1800
 timerDelay = True
- 
+
 while run:
   #testing music
   #pygame.mixer.music.play(-1)
@@ -226,32 +226,29 @@ while run:
     menuScreen.draw()
     menuImage = False
     pygame.display.update()
-   
+    
   while imageOne == True:
     imageList[imageIndex].draw()
     leftArrow.draw()
     rightArrow.draw()
     imageOne = False
     pygame.display.update()
-  if libraryCompleted == True:
-    fadeout()
-    bedroomScene()
-    libraryCompleted == False
-    pygame.display.update()
-  '''while t > 0 and timerDelay == False:
+
+  
+  '''while t > 0 and timerDelay == False: 
     mins = t // 60
     secs = t % 60
     timer = '{:02d}:{:02d}'.format(mins, secs)
     # display timer
     timerBg.draw()
     timerText = largeSans.render(timer, True, (0, 0, 0))
-    screen.blit(timerText,[610,1])
+    screen.blit(timerText,[610,1]) 
     pygame.display.update()
     timerDelay = True
     time.sleep(1)
     timerDelay = False
     t -= 1'''
- 
+  
   if imageIndex == 1 and clocksIteration == True:
     imageList[imageIndex].draw()
     clockTimes[clockIndex].draw()
@@ -264,22 +261,22 @@ while run:
       leverOn.draw()
     clocksIteration = False
     pygame.display.update()
- 
-  if imageIndex == 2 and inventoryOpen == False:
+
+  if imageIndex == 2 and inventoryOpen == False: 
     if deskOpened == True:
       deskOpen.draw()
       leftArrow.draw()
       rightArrow.draw()
       pygame.display.update()
-         
+          
     if deskOpened == False:
       deskBg.draw()
       leftArrow.draw()
       rightArrow.draw()
       pygame.display.update()
- 
+
   #for all rooms
- 
+
   for event in pygame.event.get():
       #pygame.quit() will run and close window
     print(event)
@@ -287,25 +284,24 @@ while run:
       run = False
     if event.type == pygame.KEYDOWN:
       #This is to allow pressing the 'e' key to open the inv and then close it (should have a note telling the user this option)
-      if inventoryOpen == True and event.key == pygame.K_e and zoomIn == False:
+      if inventoryOpen == True and event.key == pygame.K_e and zoomIn == False and bathroom == False:
         print('E pressed while in inv')
         screen.fill((0, 0, 0, 0))
         if imageIndex == 1:
           clocksIteration = True
-        if bibleSelected == True:
-          screen.fill((BLACK))
-          bibleScreen.draw()
-          backButton.draw()
-          bibleSelected = False
-          imageIndex = 3
         imageList[imageIndex].draw()
         imageOne = True
         leftArrow.draw()
         rightArrow.draw()
         pygame.display.set_caption("Byrne Mansion")
         inventoryOpen = False
-       
-      elif inventoryOpen == False and menuOpen == False and event.key == pygame.K_e and zoomIn == False:
+      elif inventoryOpen == True and event.key == pygame.K_e and zoomIn == False and bathroom == True and mirror == False and sink == False:
+        print('e pressed in inv')
+        BathroomScreen.draw()
+        pygame.display.set_caption('Bathroom?')
+        inventoryOpen = False
+        pygame.display.update()
+      elif inventoryOpen == False and menuOpen == False and event.key == pygame.K_e and zoomIn == False and mirror == False and sink == False:
         print("E pressed")
         screen.fill((0, 0, 0,0))
         inventoryBackground.draw()
@@ -319,16 +315,13 @@ while run:
         inventoryTextThing.draw()
         pygame.display.update()
         try:
-          if inventory[0] == 'Key' or inventory [1] == 'Key':
+          if inventory[0] == 'Key':
             inventoryKey.draw()
-            pygame.display.update()
-          if inventory[1] == 'Bible' or inventory[0] == 'Bible':
-            bibleInvItem.draw()
             pygame.display.update()
         except:
           print("The key has not been obtained yet.")
- 
-       
+
+        
     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
       x, y = event.pos
       leftArrowRect = pygame.Rect(100, 200, 30, 30)
@@ -338,10 +331,10 @@ while run:
       rankingButtonRect = pygame.Rect(455, 260, 130, 50)
       exitButtonRect = pygame.Rect(455, 340, 130, 50)
       backButtonMenu = pygame.Rect(10, 10, 30, 30)
- 
+
       if leftArrowRect.collidepoint(x, y) or rightArrowRect.collidepoint(x, y):
         inventoryOpen = False
-                 
+                  
       if startButtonRect.collidepoint(x, y) and menuOpen == True:
         pygame.display.set_caption("Byrne Mansion")
         print("Start clicked")
@@ -353,16 +346,14 @@ while run:
           print("Username entered")
           userName = experimental.userText
           imageOne = True
-          mixer.music.load('assets/sounds/music/SelectionMusic.wav')
-          mixer.music.play(-1)
           savingData()
         startClicked = True
         t = 1800
         timerDelay = False
-     
+      
       if exitButtonRect.collidepoint(x, y) and menuOpen == True and zoomIn == False:
         run = False
- 
+
       if optionsButtonRect.collidepoint(x, y) and menuOpen == True and zoomIn == False:
         pygame.display.set_caption("Options")
         print("Placeholder options")
@@ -371,7 +362,7 @@ while run:
         screen.fill((0, 0, 0, 0))
         backButton.draw()
         pygame.display.flip()
- 
+
       if rankingButtonRect.collidepoint(x, y) and menuOpen == True and zoomIn == False:
         pygame.display.set_caption("Leaderboard")
         print("Placeholder leaderboard")
@@ -380,36 +371,106 @@ while run:
         screen.fill((0, 0, 0, 0))
         backButton.draw()
         pygame.display.flip()
- 
+
       if backButtonMenu.collidepoint(x, y) and leaderBoardClicked == True:
-        menuImage = True
-        menuOpen = True
+
         leaderBoardClicked = False
-        pygame.display.set_caption("Menu")
-        pygame.display.flip()
- 
+        pygame.display.set_caption("Bathroom?")
+        BathroomArea = True
+        pygame.display.update()
+
       if backButtonMenu.collidepoint(x, y) and optionsClicked == True:
         menuImage = True
         menuOpen = True
         optionsClicked = False
         pygame.display.set_caption("Menu")
         pygame.display.update()
-     
-      if leftArrowRect.collidepoint(x, y) and menuOpen == False and zoomIn == False and inventoryOpen == False:
+
+      while BathroomArea == True:
+        BathroomScreen.draw()
+        BathroomArea = False
+        pygame.display.update()
+        bathroom = True
+        #ZoomExitButton.draw()
+        #BathroomMirror.draw()
+      if BathroomArea == False and bathroom == True:
+        #mixer.music.play(-1)
+        ZoomExitButtonRect = pygame.Rect(18, 16, 100, 100)
+        sinkRect = pygame.Rect(470, 204, 90, 43)
+        BathroomMirrorRect = pygame.Rect(475, 58, 104, 140) #589, 207
+        bathroomSlotOneRect = pygame.Rect(86, 188, 10, 51) #96, 239
+        bathroomSlotTwoRect = pygame.Rect(120, 188, 10, 51)
+        bathroomSlotThreeRect = pygame.Rect(158, 188, 10, 51)
+        waterRect = pygame.Rect(243, 260, 399, 105) # 534, 393 this is not going to be what is used for it, it is only for testing the faucet event of summoning fogged mirror
+        pygame.draw.rect(screen, BLACK, sinkRect)
+        pygame.draw.rect(screen, BLACK, bathroomSlotOneRect)
+        pygame.draw.rect(screen, BLACK, bathroomSlotTwoRect)
+        pygame.draw.rect(screen, BLACK, bathroomSlotThreeRect)
+        pygame.draw.rect(screen, BLACK, ZoomExitButtonRect)
+        pygame.draw.rect(screen, BLACK, BathroomMirrorRect)
+        breakingMirrorRect = pygame.Rect(244, 76, 208, 237)
+        #pygame.draw.rect(screen, BLACK, breakingMirrorRect)
+        pygame.display.update()
+        if BathroomMirrorRect.collidepoint(x, y) and sink == False and (slotOneInsert == False or slotThreeInsert == False or slotTwoInsert == False):
+          print("This mirror seems interesting hmmm......")
+          BackupScreen = screen.copy()
+          mirror = True
+          BathroomMirrorScreen.draw()
+          pygame.display.update()
+          #ZoomExitButton.draw()
+        elif BathroomMirrorRect.collidepoint(x, y) and slotOneInsert == True and slotThreeInsert == True and slotTwoInsert == True and sink == False:
+          print("foggy mirror......")
+          BackupScreen = screen.copy()
+          mirror = True
+          foggedMirror.draw()
+          pygame.display.update()
+        if breakingMirrorRect.collidepoint(x, y):
+          if mirror == True and slotOneInsert == True and slotThreeInsert == True and slotTwoInsert == True and water == True:
+            print('breaking mirror...')
+            hammerSelected = False
+            mirror = True
+            brokenMirrorScreen.draw()
+            pygame.display.update()
+        if ZoomExitButtonRect.collidepoint(x, y) and mirror == True or ZoomExitButtonRect.collidepoint(x, y) and sink == True:
+          mirror = False
+          sink = False
+          BathroomScreen.draw()
+        if bathroomSlotOneRect.collidepoint(x, y) and mirror == False and sink == False:
+          slotOneInsert = True
+          print('slot one = true')
+        if bathroomSlotTwoRect.collidepoint(x, y) and mirror == False and sink == False:
+          slotTwoInsert = True
+          print('slot two = true')
+        if bathroomSlotThreeRect.collidepoint(x, y) and mirror == False and sink == False:
+          slotThreeInsert = True
+          print('slot three = true')
+        if sinkRect.collidepoint(x, y) and sink == False and mirror == False:
+          sink = True
+          
+          if slotOneInsert == False or slotTwoInsert == False and slotThreeInsert == False:
+            sinkScreen.draw()
+          elif slotOneInsert == True and slotTwoInsert == True and slotThreeInsert == True:
+            sinkWaterScreen.draw()
+          pygame.draw.rect(screen, BLACK, waterRect)
+          pygame.display.update()
+        if waterRect.collidepoint(x, y) and sink == True and slotOneInsert == True and slotTwoInsert == True and slotThreeInsert == True:
+          print('steam')
+          water = True
+      if leftArrowRect.collidepoint(x, y) and menuOpen == False and zoomIn == False and inventoryOpen == False and bathroom == False: 
         if imageIndex == 0:
-          imageIndex = len(imageList) - 2
+          imageIndex = len(imageList) - 1
           screen.fill((0, 0, 0, 0))
           imageOne = True
           firstOpen = True
           print(imageIndex)
-          pygame.display.update()
-         
-        elif imageIndex == 2 or imageIndex == 3:
+          pygame.display.update() 
+          
+        elif imageIndex == 2:
           imageIndex -= 1
           clocksIteration = True
           firstOpen = True
           print(imageIndex)
-         
+          
         else:
           imageIndex -= 1
           screen.fill((0, 0, 0, 0))
@@ -417,22 +478,22 @@ while run:
           imageOne = True
           print(imageIndex)
           pygame.display.update()    
-       
-      if rightArrowRect.collidepoint(x, y) and menuOpen == False and zoomIn == False and inventoryOpen == False:
-        if imageIndex == 2 or imageIndex == 3:
+        
+      if rightArrowRect.collidepoint(x, y) and menuOpen == False and zoomIn == False and inventoryOpen == False and bathroom == False and sink == False and mirror == False: 
+        if imageIndex == len(imageList) - 1:
           imageIndex = 0
           screen.fill((0, 0, 0, 0))
           imageOne = True
           firstOpen = True
           print(imageIndex)
-          pygame.display.update()    
-         
+          pygame.display.update()     
+          
         elif imageIndex == 0:
-          imageIndex += 1      
+          imageIndex += 1       
           clocksIteration = True
           firstOpen = True
           print(imageIndex)    
-         
+          
         else:
           imageIndex += 1
           screen.fill((0, 0, 0, 0))
@@ -440,15 +501,15 @@ while run:
           imageOne = True
           print(imageIndex)
           pygame.display.update()
- 
+
       if imageIndex == 0 and startClicked == True:
         shelfOne = pygame.Rect(0, 70, 130, 110)
         shelfTwo = pygame.Rect(141, 0, 184, 300)
         shelfThree = pygame.Rect(331, 0, 194, 300)
         shelfFour = pygame.Rect(525, 60, 175, 120)
         backButtonRect = pygame.Rect(10, 10, 30, 30)
- 
-        if shelfOne.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
+
+        if shelfOne.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False and bathroom == False and sink == False and mirror == False:
           print("Shelf one clicked")
           shelfZooms[0].draw()
           backButton.draw()
@@ -461,13 +522,13 @@ while run:
           #if BibleRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and menuOpen == False:
         """print("Bible clicked!")
           screen.fill((0, 0, 0, 0))
- 
+
           inventory.append("inventoryBible")
           #pygame.mixer.Sound.play(inventoryDing)
           pygame.mixer.music.stop()
           inventory = list(set(inventory))
           print(inventory)"""
-           
+            
         if shelfTwo.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
           print("Shelf two clicked")
           shelfZooms[1].draw()
@@ -481,18 +542,18 @@ while run:
           #if BlankBookRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and menuOpen == False:
         """print("Blank Book clicked!")
           screen.fill((0, 0, 0, 0))
- 
+
           inventory.append("inventoryBlankBook")
           #pygame.mixer.Sound.play(inventoryDing)
           pygame.mixer.music.stop()
           inventory = list(set(inventory))
           print(inventory)"""
-         
+          
         if shelfThree.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
           print("Shelf three clicked")
           shelfZooms[2].draw()
           backButton.draw()
-          pygame.display.update()
+          pygame.display.update() 
           zoomIn = True
           if firstOpen == True:
             zoomIn = False
@@ -501,28 +562,16 @@ while run:
           print("Shelf four clicked")
           shelfZooms[3].draw()
           backButton.draw()
-          bibleBookSpine.draw()
-          zoomIn = True
           pygame.display.update()
+          zoomIn = True
           if firstOpen == True:
             zoomIn = False
             firstOpen = False
-          bibleRect = pygame.Rect(0 , 0, screenWidth, screenHeight)
-          pygame.draw.rect(screen, BLACK, bibleRect)
-          pygame.display.update()
- 
-          if bibleRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and menuOpen == False:
-            print('Bible has been interacted with')
-            inventory[1] = 'Bible'
-            mixer.Sound.play(inventoryDing)
-            inventory = list(set(inventory))
-            print(inventory)
-          pygame.display.flip()
             #DancingMenRect = pygame.Rect(w, x, y, z)
           #if DancingMenRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and menuOpen == False:
         """print("The Adventures of the Dancing Men clicked!")
           screen.fill((0, 0, 0, 0))
- 
+
           inventory.append("inventoryDancingMen")
           #pygame.mixer.Sound.play(inventoryDing)
           pygame.mixer.music.stop()
@@ -532,12 +581,12 @@ while run:
             DancingMen.draw()
             if DancingMen.collidepoint(x, y)
             DancingMen.fill(Transparent)
- 
+
 """
         if backButtonRect.collidepoint(x, y):
           imageOne = True
           zoomIn = False
- 
+
       #clocks
       if imageIndex == 1:
         clockRect = pygame.Rect(280, 20, 120, 100)
@@ -547,8 +596,8 @@ while run:
         if clockRect.collidepoint(x, y) and inventoryOpen == False:
           if clockIndex != 11:
             print("Clock time set to " + str(clockIndex+2) + ':00')
-     
-           
+      
+            
           else:
             print('Clock time set to ' + str(1) + ':00')
           if clockIndex == 11:
@@ -559,7 +608,7 @@ while run:
             clockIndex+=1
             clockTimes[clockIndex].draw()
             pygame.display.update()
-           
+            
         #runs when lever clicked
         if leverRect.collidepoint(x, y) and inventoryOpen == False:
           clockTimes[clockIndex].draw()
@@ -575,54 +624,44 @@ while run:
             else:
               print("Don't you dare to guess again!")
             pygame.display.update()
-     
+      
           elif leverState == True:
             leverOff.draw()
             pygame.display.update()
             leverState = False
-         
+          
       #adds key to inventory
         if keyRect.collidepoint(x, y) and clockIndex == 4 and inventoryOpen == False:
           print("Key clicked")
           screen.fill((0, 0, 0, 0))
           imageOne = True
-         
+          
           clocksIteration = True
-          inventory[0] ="Key"
+          inventory.append("Key")
           mixer.Sound.play(inventoryDing)
+          pygame.mixer.music.stop()
           inventory = list(set(inventory))
           print(inventory)
- 
- 
+
+
       #inventory
       if inventoryOpen == True:
         slotOneRect = pygame.Rect(196, 296, 45, 56)
-        slotTwoRect = pygame.Rect(254, 296, 45, 56)
+        slotFourRect = pygame.Rect(347, 305, 45, 56)
         if slotOneRect.collidepoint(x, y):
           try:
-              print("In the first slot, there is a " + inventory[0])
-              if inventory[0] == 'Key':
-                keySelectedRect = pygame.draw.rect(screen, (220, 20, 60), pygame.Rect(0, 0, 700, 700), 2)
-                keySelected = True
-                print("Where does this key lead me?")
-              elif inventory[0] == 'Bible':
-                print('Slot 2 has a ' + inventory[1])
-                bibleSelectedRect = pygame.draw.rect(screen, (220, 20, 60),  pygame.Rect(0, 0, 700, 700), 2)
-                bibleSelected = True
+            print("In the first slot, there is a " + inventory[0])
+            keySelectedRect = pygame.draw.rect(screen, (220, 20, 60), pygame.Rect(0, 0, 700, 700), 2)
+            keySelected = True
+            print("Where does this key lead me?")
           except:
             print("There is nothing in that slot.")
-        if slotTwoRect.collidepoint(x, y):
+        if slotFourRect.collidepoint(x, y):
           try:
-            print('Slot 2 has a ' + inventory[1])
-            if inventory[1] == 'Bible':
-              bibleSelectedRect = pygame.draw.rect(screen, (220, 20, 60),  pygame.Rect(0, 0, 700, 700), 2)
-              bibleSelected = True
-            if inventory[1] == 'Key':
-              keySelectedRect = True
-              keySelected = True
+            print('HAMMER TIME')
+            hammerSelected = True
           except:
-            print('no book to open :(')
- 
+            print('Hammer has left the chat')
       if imageIndex == 2:
         deskRect = pygame.Rect(365, 240, 160, 145)
         if deskRect.collidepoint(x, y):
@@ -637,65 +676,63 @@ while run:
             print("You have not obtained the key yet")
           if deskOpened == True:
             print("Up view of desk here ;D")
-            libraryCompleted = True
 
 pygame.quit()
- 
- 
+
+
 """
 This if for the Arcostic Poem!
 I will add the code you guys asked for here and we'll most likely edit the minor stuff such as the images and stuff later when we have it.
- 
+
 ##Variables called
 ArcosticButtonImageObject = pygame.image.load(
     "assets/buttons/second_screen/dialogButton.jpeg")
 # Created a variable which holds an image of the dialog
 ArcosticImageObject = pygame.image.load(
     "assets/buttons/second_screen/dialog.jpeg")
- 
+
 ## Basically what gives the variables a visible output
 ArcosticButtonImageObject = Button(1, 1, ArcosticButtonImageObject, 0.05)
 ArcosticImageObject = Button(100, screenHeight / 8, ArcosticImageObject, 1.6)
 ##
- 
+
 #will go inside of the run loop
 ArcosticButtonImageObject.draw()
 #
- 
+
 ###Button creation
 ArcosticButtonRect = pygame.Rect(1, 1, 64, 36)
 ###
- 
-#### Basically the button which we created when clicked will collide with the (x, y) which'll cause the Arcostic Image which is the poem to draw itself onto the user's screen.
+
+#### Basically the button which we created when clicked will collide with the (x, y) which'll cause the Arcostic Image which is the poem to draw itself onto the user's screen. 
 if ArcosticButtonRect.collidepoint(x, y):
                 ArcosticImageObject.draw()
 ####
- 
+
 That's about it. idk where we're going to put it, but it's there
 """
 """
 clicking sound code:
- 
+
       pygame.mixer.music.play( whatever the file name for the clicking sound goes here )
- 
+
 just add it to the places where its needed. I didn't do that
 ############################################################################################################################################################################################################
 when you need the moving bookshelves sound do the same code but with a different file name inside the paranthesis. It should work if not tell me (Osvaldo) and ill fix it.
 ############################################################################################################################################################################################################
       """
- 
+
 """
 #I renamed the deskBg to the new image which is technically the zoomed in version but i think it works best in contrast to the other one. I don't have any idea of where to put the code. So please do that for me. Thank you - Osvaldo
 DeskLockRect = pygame.Rect(480, 360, 30, 30)
- 
+
 if DeskLockRect == imageList[2][0] and keySelected == True and DeskLockRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
   DeskOpen.draw()
   DeskFile.draw()
 else:
   print("You need a key to unlock this desk.")
   print("If you have the key, you have to grab it from your inventory. Then try to open the desk.")
- 
- 
-NUMBERS ARE 4 and 7
-"""
+  
 
+
+"""
