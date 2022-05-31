@@ -54,11 +54,10 @@ active = False
 
 #inventoryBible = pygame.image.load(" .................. ") #inventory image
 #inventoryDancingMen = pygame.image.load(" ................ ") #inventory image
-#inventoryBlankBook = pygame.image.load(" ................ ") #inventory image
+invBlankBook = pygame.image.load("assets/images/Library/puzzle-1/Books/blank book cover + bookmark (1).png") #inventory image
 #Bible = pygame.image.load(" .............. ") #should be the vesion where we see the verses
 #DancingMen = pygame.image.load(" .............. ") #version where we see the explanation to the dancing men cipher
-#BlankBook = pygame.image.load(" .............. ") #nothing inside until ran under water
-
+BlankBook = pygame.image.load("assets/images/Library/puzzle-1/Books/blank book cover + bookmark (1).png") #nothing inside until ran under water
 #i dont have any idea where the images for these are... if yo could please find them id be most gracious
 
 #work-in-progress
@@ -107,6 +106,8 @@ mixer.init()
 inventoryDing = pygame.mixer.Sound("assets/sounds/effects/inventoryDing.wav")
 #mixer.music.set_volume(0.7)
 clueClick = pygame.mixer.Sound("assets/sounds/effects/clueClick.wav")
+reversedRecordSound = pygame.mixer.Sound("assets/sounds/music/reversedaudio.wav")
+recordSound = pygame.mixer.Sound("assets/sounds/music/unreversedaudio (1).wav")
 
 #bgMusic = mixer.music.load("assets/sounds/music/bgMusic.mp3")
 #intense music lag moment
@@ -260,12 +261,11 @@ def hint(text):
 while run:
   #testing music
   #pygame.mixer.music.play(-1)
-  """
   while menuImage == True:
     menuScreen.draw()
     menuImage = False
     pygame.display.update()
-    
+    """
   while imageOne == True:
     imageList[imageIndex].draw()
     leftArrow.draw()
@@ -354,20 +354,19 @@ while run:
             pygame.display.update()
         except:
           print("The key has not been obtained yet.")
-"""
-    """    
+
 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
       x, y = event.pos
       
-      """
+      
       leftArrowRect = pygame.Rect(100, 200, 30, 30)
       rightArrowRect = pygame.Rect(540, 200, 30, 30)
       startButtonRect = pygame.Rect(455, 100, 135, 50)
       optionsButtonRect = pygame.Rect(455, 180, 130, 50)
       rankingButtonRect = pygame.Rect(455, 260, 130, 50)
       exitButtonRect = pygame.Rect(455, 340, 130, 50)
-      backButtonMenu = pygame.Rect(10, 10, 30, 30)
 
+      backButtonMenu = pygame.Rect(10, 10, 30, 30)
       if leftArrowRect.collidepoint(x, y) or rightArrowRect.collidepoint(x, y):
         inventoryOpen = False
                   
@@ -375,7 +374,7 @@ if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
         pygame.display.set_caption("Byrne Mansion")
         print("Start clicked")
         menuOpen = False
-        experimental.scene0() #attempting to bring the cutscene over via importing
+        BedroomArea = True
         pygame.display.update()
         if experimental.userNameEntered == True:
           imageIndex = 0
@@ -486,8 +485,8 @@ if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             firstOpen = False
             #BibleRect = pygame.Rect(w, x, y, z)
           #if BibleRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and menuOpen == False:
-        """
-      """
+        
+"""
         print("Bible clicked!")
           screen.fill((0, 0, 0, 0))
 
@@ -497,7 +496,7 @@ if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
           inventory = list(set(inventory))
           print(inventory)
           """
-      """
+"""
         if shelfTwo.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
           print("Shelf two clicked")
           shelfZooms[1].draw()
@@ -524,7 +523,7 @@ if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             BlankBook.fill(Transparent)
             inventoryOpen = True
           """
-      """
+"""
         if shelfThree.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
           print("Shelf three clicked")
           shelfZooms[2].draw()
@@ -546,11 +545,11 @@ if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             #DancingMenRect = pygame.Rect(w, x, y, z)
           #if DancingMenRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == True and menuOpen == False:
         """
-      """
+"""
         print("The Adventures of the Dancing Men clicked!")
           screen.fill((0, 0, 0, 0))
           """
-      """
+"""
           inventory.append("inventoryDancingMen")
           #pygame.mixer.Sound.play(inventoryDing)
           pygame.mixer.music.stop()
@@ -564,12 +563,12 @@ if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             inventoryOpen = True
 
 """
-      """
+"""
         if backButtonRect.collidepoint(x, y):
           imageOne = True
           zoomIn = False
 """
-      """
+"""
       #clocks
       if imageIndex == 1:
         clockRect = pygame.Rect(280, 20, 120, 100)
@@ -626,9 +625,9 @@ if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
           inventory = list(set(inventory))
           print(inventory)
 """
-
+######################################################################################################################################################
       #inventory
-      if inventoryOpen == True:
+if inventoryOpen == True:
         slotOneRect = pygame.Rect(196, 296, 45, 56)
         slotTwoRect = pygame.Rect(196, 330, 45, 56)
         slotThreeRect = pygame.Rect(196, 367, 45, 56)
@@ -731,68 +730,13 @@ if BedroomArea == True:
       recordPlayerwithvinylflipRect = pygame.Rect(100, 200, 100, 75)
       #the flip version should be higher up than the other rectangle. I would reccomend like near the giant circular part or you can even put it anywhere you like where it is reasonable.
       if recordPlayerwithvinylRect.collidepoint(x, y) and BedroomArea == True and RecordPlayerZoom == True and invRecordSelect == False:
-        #play sound which is backwards
+        mixer.Sound.play(reversedRecordSound)
         print("There was a crazy man that always did everything backwards. Even talking in reverse! Crazy right? What?! I’m bothering you? You really have the audacity to say that?")
-      elif recordPlayerwithvinylflipRect.collidepoint(x, y):
-        #play the normal sound which is understandable.
-
+      elif recordPlayerwithvinylflipRect.collidepoint(x, y) and invRecordSelect == True and BedroomArea == True:
+        mixer.Sound.play(recordSound)
   
 
 
 
-      """
-This if for the Arcostic Poem!
-I will add the code you guys asked for here and we'll most likely edit the minor stuff such as the images and stuff later when we have it.
-
-##Variables called
-ArcosticButtonImageObject = pygame.image.load(
-    "assets/buttons/second_screen/dialogButton.jpeg")
-# Created a variable which holds an image of the dialog
-ArcosticImageObject = pygame.image.load(
-    "assets/buttons/second_screen/dialog.jpeg")
-
-## Basically what gives the variables a visible output
-ArcosticButtonImageObject = Button(1, 1, ArcosticButtonImageObject, 0.05)
-ArcosticImageObject = Button(100, screenHeight / 8, ArcosticImageObject, 1.6)
-##
-
-#will go inside of the run loop
-ArcosticButtonImageObject.draw()
-#
-
-###Button creation
-ArcosticButtonRect = pygame.Rect(1, 1, 64, 36)
-###
-
-#### Basically the button which we created when clicked will collide with the (x, y) which'll cause the Arcostic Image which is the poem to draw itself onto the user's screen. 
-if ArcosticButtonRect.collidepoint(x, y):
-                ArcosticImageObject.draw()
-####
-
-That's about it. idk where we're going to put it, but it's there
-"""
-"""
-clicking sound code:
-
-      pygame.mixer.music.play( whatever the file name for the clicking sound goes here )
-
-just add it to the places where its needed. I didn't do that
-############################################################################################################################################################################################################
-when you need the moving bookshelves sound do the same code but with a different file name inside the paranthesis. It should work if not tell me (Osvaldo) and ill fix it.
-############################################################################################################################################################################################################
-      """
-"""
-#I renamed the deskBg to the new image which is technically the zoomed in version but i think it works best in contrast to the other one. I don't have any idea of where to put the code. So please do that for me. Thank you - Osvaldo
-DeskLockRect = pygame.Rect(480, 360, 30, 30)
-
-if DeskLockRect == imageList[2][0] and keySelected == True and DeskLockRect.collidepoint(x, y) and inventoryOpen == False and zoomIn == False and menuOpen == False:
-  DeskOpen.draw()
-  DeskFile.draw()
-else:
-  print("You need a key to unlock this desk.")
-  print("If you have the key, you have to grab it from your inventory. Then try to open the desk.")
-  
-
-
-"""
+      
 pygame.quit()
